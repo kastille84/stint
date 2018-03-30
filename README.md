@@ -1,5 +1,5 @@
 # React/Redux Express Starter Pack
-
+<!-- 
 > Create full stack apps with React/Redux and Express. Run your client and server with a single command
 
 ### Version Without Redux
@@ -37,6 +37,6 @@ Brad Traversy & Gregory Assasie
 
 1.0.0
 
-### License
+### License -->
 
 This project is licensed under the MIT License

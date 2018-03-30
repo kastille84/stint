@@ -1,4 +1,4 @@
-# React/Redux Express Starter Pack
+# STINT - Chore Tracker App
 <!-- 
 > Create full stack apps with React/Redux and Express. Run your client and server with a single command
 

@@ -27,7 +27,7 @@ class Register extends Component  {
                 // dispatch an action
                 this.props.onRegisterSet();
                 // navigate to login page
-                
+                this.props.history.push('/signin');
             })
             .catch(e => {
 

@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import InfoMessage from '../../UI/Message/infoMessage';
 
 class Signin extends Component {
-
+    state = {
+        
+    }
 
     render() {
         // check if registered, but not verified

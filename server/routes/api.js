@@ -42,7 +42,7 @@ router.post('/register', [
     if (!result.isEmpty()) {
         // there are some validation errors
         //return res.status(400).json({errors: 'Something went wrong, check your input'});
-        return res.status(400).json({errors: result});
+        return res.status(400).json({errors: 'Something went wrong, check your input'});
     }
     // hash password before saving
     const salt = bcrypt.genSaltSync(10);
@@ -58,7 +58,7 @@ router.post('/register', [
     });
     adult.save( (err, result) => {
         if (err) {
-            return res.status(500).json({error: 'Could not Save to DB'})
+            return res.status(500).json({error: 'Could not Register You. Try again.'})
         }
         // NODE MAILER - send a verification email
         const transporter = nodemailer.createTransport({

@@ -1,3 +1,5 @@
 export {
-    setUserRegisteredTrue
+    setUserRegisteredTrue,
+    setUser,
+    setSigninUser
 } from './user';

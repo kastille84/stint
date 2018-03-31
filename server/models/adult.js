@@ -21,6 +21,10 @@ const schema = new Schema({
         type: String,
         required: true
     },
+    children: {
+        type: Array,
+        default: []
+    },
     verifyHash: {
         type: String
     },

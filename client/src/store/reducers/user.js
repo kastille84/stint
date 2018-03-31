@@ -2,15 +2,8 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    whichUser: null,
-    user: {
-        id: null,
-        type: null, // parent or child
-        token: null,
-        children: null, // only changed if parent
-        choreList: null, 
-        completed: null
-    },
+    whichUser: false,
+    user: null,
     isRegistered: false,
     isSignedIn: false,
     isVerified: false
@@ -22,6 +15,16 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isRegistered: true 
+            }
+        case actionTypes.SET_USER:
+            return {
+                ...state,
+                user: action.user
+            }
+        case actionTypes.SET_SIGNIN_USER:
+            return {
+                ...state,
+                isSignedIn: true
             }
         default:
             return state;

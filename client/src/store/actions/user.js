@@ -6,3 +6,16 @@ export const setUserRegisteredTrue = () => {
         type: actionTypes.SET_USER_REGISTERED_TRUE
     }
 }
+
+export const setUser = (user) => {
+    return {
+        type: actionTypes.SET_USER,
+        user: user
+    }
+}
+
+export const setSigninUser = () => {
+    return {
+        type: actionTypes.SET_SIGNIN_USER
+    }
+}

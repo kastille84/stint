@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 //import classes from './Register.css';
 import axios from 'axios';
 import * as actions from '../../../store/actions/index'
@@ -164,10 +165,11 @@ class Register extends Component  {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-md-8 offset-md-2">
+                    <div className="col-md-6 offset-md-3 col-sm-8 offset-sm-2">
                         {reqErrorsDisplay}
                         {errorDisplay}
                         <h1>Register</h1>
+                        <small>Already have an account? <Link to="/signin">Signin</Link></small>
                         <form className="form-control" onSubmit={this.handleSubmit}>
                             <div className="form-group">
                                 <label>Name</label>

@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const ObjectID = require('mongodb').ObjectID;
 const {check, validationResult} = require('express-validator/check');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const randomString = require('random-string');
 const nodemailer = require('nodemailer');
@@ -104,7 +105,55 @@ router.get('/register/:id/:vhash', (req, res) => {
     .catch(err => {
         return res.status(500).json({error: 'could not verify'});
     })
-})
+});
+
+// SIGNIN
+router.post('/signin', [
+    check('email')
+        .isEmail()
+        .trim()
+        .escape()
+        .exists(),
+    check('password')
+        .trim()
+        .escape()
+        .exists()
+    ], (req, res) => {
+        // validate values
+        const result = validationResult(req);
+        if (!result.isEmpty()) {
+            return res.status(500).json({message: 'Invalid Inputs'});
+        }
+        // check email, password credentials
+        Adult.find({email: (req.body.email).toLowerCase()}).exec()
+            .then(adult => {
+                // if adult hasn't been verified... don't go any further
+                if (adult.verified === false) {
+                    return res.status(500).json({message: "We emailed you the verfication steps the finish setting up your account."})
+                }
+                //verified at this point
+                bcrypt.compare((req.body.password).toLowerCase(), adult[0].password, (err, same) =>{
+                    if (err) {
+                        return res.status(500).json({message: 'Could not login. Try again later'});
+                    }
+                    if (same) {
+                        // passwords match
+                            // create token
+                            const token = jwt.sign({id: adult._id}, tks, {expiresIn: '2h'});
+                            // send token & success message
+                            // ALSO... send the adult data obj
+                            return res.status(200).json({
+                                token: token,
+                                user: adult[0]
+                            });
+                    }
+                })
+            })
+            .catch(error => {
+                // person does not exist on server
+                return res.status(403).json({message: "Wrong email/password"});
+            })
+});
 
 //router.get('/users', (req, res) => {
     // User.find()

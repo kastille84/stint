@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import classes from './Frontend.css';
 import Home from '../../components/Frontend/Home/Home';
 import About from '../../components/Frontend/About/About';
@@ -14,7 +14,10 @@ export default class Frontend extends Component {
                 <Route path="/" exact component={Home} />
                 <Route path="/about"  component={About} />
                 <Route path="/register" component={Register} />
-                <Route path="/signin"  component={Signin} />
+                <Switch>
+                    <Route path="/signin/:id/:hash" component={Signin} />
+                    <Route path="/signin"  component={Signin} />
+                </Switch>
             </div>
         );
     }

@@ -75,7 +75,7 @@ router.post('/register', [
             from: `"Edwin at Stint" <${email}> `,
             to: req.body.email,
             subject: "Stint Needs Email Verification",
-            html: "<h2>Hey " + req.body.name + "</h2><h3>Thank you for registering to Sting</h3><p>For sercurity reasons, we need to verify that you are the person/entitfy that just registered with us. </p><p>Please click on the link below to complete verification</p><br><a href='" + urlEnv+"api/register/" + result._id+"/" + vhash + "'>VERIFY HERE</a>"
+            html: "<h2>Hey " + req.body.name + "</h2><h3>Thank you for registering to Stint</h3><p>For sercurity reasons, we need to verify that you are the person/entitfy that just registered with us. </p><p>Please click on the link below to complete verification</p><br><a href='" + "http://localhost:3000/" +"signin/" + result._id+"/" + vhash + "'>VERIFY HERE</a>"
         };
         // send mail
         transporter.sendMail(mailOptions, (err, info) => {
@@ -88,6 +88,22 @@ router.post('/register', [
         });
     })
 
+})
+    // Register Verify
+router.get('/register/:id/:vhash', (req, res) => {
+    const id = req.params['id'];
+    const vhash = req.params['vhash'];
+    
+    //query the ADULT collection for an id
+    Adult.findByIdAndUpdate(id, {
+        verified: true
+    }).exec()
+    .then(result => {
+        return res.status(200).json({message: 'verified'});
+    })
+    .catch(err => {
+        return res.status(500).json({error: 'could not verify'});
+    })
 })
 
 //router.get('/users', (req, res) => {

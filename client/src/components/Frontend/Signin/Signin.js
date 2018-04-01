@@ -121,21 +121,28 @@ class Signin extends Component {
                     // store token in localStorage
                     localStorage.setItem('token', response.data.token);
                     // store user in redux
-                        //set isSignedIn to true, whichuser stays false
+                        //set isSignedIn to true, whichusermode stays false
                     this.props.onSetUser(response.data.user);
                     this.props.onSetSignedIn();
+
+                    //** Temp for testing */
+                    response.data.user.children[0]={name: 'johnny', age:"12"}
+                    //** Temp for testing */
+
                     // redirect to Dashboard OR Whichuser
                     if (response.data.user.children.length === 0) {
                         // send them to dashboard so they can add children
-                        
+                        // whichuserMode is false
+                        this.props.history.push('/dashboard');
                     } else {
-                        // there's children, so we must find out
-                        // which user is trying to user Stint
-
+                        // there's children, WhichuserMode is true
+                        this.props.onSetWhichUserMode();
+                        this.props.history.push('/dashboard/whichuser');
                     }
                 })
                 .catch(error =>{
-
+                    //reqErrors
+                    this.setState({reqErrors: true})
                 });
         }
         // else state.isValid remains false
@@ -152,7 +159,7 @@ class Signin extends Component {
         // display input errors
         let errors= [];
         let errorDisplay = null;
-        let reqErrorsDisplay = null
+        let reqErrorsDisplay = null;
 
         if(!this.state.isValid) {
             for (let ctr in this.state.controls) {
@@ -170,11 +177,15 @@ class Signin extends Component {
                 </ul>
             )
         }
+        if (this.state.reqErrors) {
+            reqErrorsDisplay = <InfoMessage messageType="fail">Wrong Username/Password Combination</InfoMessage>;
+        }
         return (
             <div className="container">
                 <div className="row">
                     <div className="col-md-6 offset-md-3 col-sm-8 offset-sm-2">
                         {message}
+                        {reqErrorsDisplay}
                         {errorDisplay}
                         <h1>Signin</h1>
                         <small>Don't have an account? <Link to="/register">Register</Link></small>
@@ -217,7 +228,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onSetUser: (user)=> {dispatch(actions.setUser(user))},
-        onSetSignedIn: () => {dispatch(actions.setSigninUser())}
+        onSetSignedIn: () => {dispatch(actions.setSigninUser())},
+        onSetWhichUserMode: () =>{dispatch(actions.setWhichUserMode())}
     }
 }
 

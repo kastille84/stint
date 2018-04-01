@@ -19,3 +19,9 @@ export const setSigninUser = () => {
         type: actionTypes.SET_SIGNIN_USER
     }
 }
+
+export const setWhichUserMode = () => {
+    return {
+        type: actionTypes.SET_WHICH_USER_MODE
+    }
+}

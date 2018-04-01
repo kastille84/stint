@@ -7,17 +7,21 @@ import Register from '../../components/Frontend/Register/Register';
 import Signin from '../../components/Frontend/Signin/Signin';
 
 export default class Frontend extends Component {
+    componentDidMount() {
+    }
 
     render(){
         return (
-            <div className={classes.Frontend}>
-                <Route path="/" exact component={Home} />
-                <Route path="/about"  component={About} />
-                <Route path="/register" component={Register} />
+            <div className={classes.Frontend}>    
+            Front            
                 <Switch>
+                    <Route path="/" exact={true} component={Home} />        
+                    <Route path='/about'  component={About} />
+                    <Route path='/register' component={Register} />
                     <Route path="/signin/:id/:hash" component={Signin} />
                     <Route path="/signin"  component={Signin} />
                 </Switch>
+                
             </div>
         );
     }

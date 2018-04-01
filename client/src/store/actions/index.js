@@ -1,5 +1,6 @@
 export {
     setUserRegisteredTrue,
     setUser,
-    setSigninUser
+    setSigninUser,
+    setWhichUserMode
 } from './user';

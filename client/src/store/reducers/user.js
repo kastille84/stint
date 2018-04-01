@@ -2,7 +2,7 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    whichUser: false,
+    whichUserMode: false,
     user: null,
     isRegistered: false,
     isSignedIn: false,
@@ -25,6 +25,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isSignedIn: true
+            }
+        case actionTypes.SET_WHICH_USER_MODE:
+            return {
+                ...state,
+                whichUserMode: true
             }
         default:
             return state;

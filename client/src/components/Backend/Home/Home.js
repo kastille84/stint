@@ -20,8 +20,11 @@ class Home extends Component {
                     <div className="col-md-8 offset-md-2">
                         <h1 className="mb-2">Hey {this.props.userRedux.user.name}</h1>
                         {noChildren}
-
                         <h3 className="btn"><Link to="/dashboard/addChild">Add / Edit Child</Link></h3>
+                        {!noChildren ? 
+                            <h3 className="btn"><Link to="/dashboard/addChoreList">Add / Edit Chore List</Link></h3>
+                            
+                        :null}
                     </div>
                 </div>
             </div>

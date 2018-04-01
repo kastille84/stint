@@ -55,20 +55,23 @@ const navigation = (props) => {
                 <span className="navbar-toggler-icon"></span>
                 </button>    
                 <div className="collapse navbar-collapse" id="navbarsExampleDefault">
-                <ul className="navbar-nav mr-auto">
-                    <li className="nav-item active">
-                        <NavLink to="/" className="nav-link">Home</NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink to="/about" className="nav-link">Chores</NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink to="/register" className="nav-link">ChoreList</NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink to="/signin" className="nav-link">Signout</NavLink>
-                    </li>
-                </ul>            
+                    <ul className="navbar-nav mr-auto">
+                        <li className="nav-item active">
+                            <NavLink to="/dashboard" className="nav-link">Home</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink to="/dashboard/addChild" className="nav-link">Children</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink to="/dashboard/" className="nav-link">Chores</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink to="/dashboard/" className="nav-link">ChoreList</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink to="/dashboard/" className="nav-link">Signout</NavLink>
+                        </li>
+                    </ul>            
                 </div>
             </nav>
         )

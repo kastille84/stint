@@ -14,6 +14,13 @@ export const setUser = (user) => {
     }
 }
 
+export const setUserType = (type) => {
+    return {
+        type: actionTypes.SET_USER_TYPE,
+        userType: type
+    }
+}
+
 export const setSigninUser = () => {
     return {
         type: actionTypes.SET_SIGNIN_USER

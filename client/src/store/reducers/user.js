@@ -2,6 +2,7 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
+    userType: null,
     whichUserMode: false,
     user: null,
     isRegistered: false,
@@ -20,6 +21,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 user: action.user
+            }
+        case actionTypes.SET_USER_TYPE:
+            return {
+                ...state,
+                userType: action.userType
             }
         case actionTypes.SET_SIGNIN_USER:
             return {

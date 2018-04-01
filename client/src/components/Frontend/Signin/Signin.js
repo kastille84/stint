@@ -125,14 +125,16 @@ class Signin extends Component {
                     this.props.onSetUser(response.data.user);
                     this.props.onSetSignedIn();
 
-                    //** Temp for testing */
-                    response.data.user.children[0]={name: 'johnny', age:"12"}
+                    //** Temp for testing for whichuser */
+                    // response.data.user.children[0]={name: 'johnny', age:"12"}
                     //** Temp for testing */
 
                     // redirect to Dashboard OR Whichuser
                     if (response.data.user.children.length === 0) {
                         // send them to dashboard so they can add children
                         // whichuserMode is false
+                        // set usertype to adult
+                        this.props.onSetUserType('adult');
                         this.props.history.push('/dashboard');
                     } else {
                         // there's children, WhichuserMode is true
@@ -229,7 +231,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onSetUser: (user)=> {dispatch(actions.setUser(user))},
         onSetSignedIn: () => {dispatch(actions.setSigninUser())},
-        onSetWhichUserMode: () =>{dispatch(actions.setWhichUserMode())}
+        onSetWhichUserMode: () =>{dispatch(actions.setWhichUserMode())},
+        onSetUserType: (type) => {dispatch(actions.setUserType(type))}
     }
 }
 

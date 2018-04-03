@@ -105,6 +105,29 @@ class Register extends Component  {
 
     }
 
+    errorDisplay =  () => {
+        let errors= [];
+        let errorDisplay = null;
+
+        if(!this.state.isValid) {
+            for (let ctr in this.state.controls) {
+                if (this.state.controls[ctr].validation.length > 0) {
+                    errors.push(...this.state.controls[ctr].validation);
+                }
+            }
+            errorDisplay = (
+                <ul style={{listStyle: 'none'}}>
+                    {errors.map( (err, index) => (
+                        <li key={index}>
+                            <InfoMessage messageType="fail">{err}</InfoMessage>
+                        </li>
+                    ))}
+                </ul>
+            )
+        }
+        return errorDisplay;
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
         let isValid = true;
@@ -137,26 +160,10 @@ class Register extends Component  {
 
 
     render(){
-        let errors = [];
         let reqErrorsDisplay = null;
-        let errorDisplay = null;
+        let errorDisplay = this.errorDisplay();
 
-        if (!this.state.isValid) {
-            for (let ctr in this.state.controls) {
-                if (this.state.controls[ctr].validation.length > 0) {
-                    errors.push(...this.state.controls[ctr].validation);
-                }
-            }
-            errorDisplay = (
-                <ul style={{listStyle: 'none'}}>
-                    {errors.map( (err, index) => (
-                        <li key={index}>
-                            <InfoMessage messageType="fail">{err}</InfoMessage>
-                        </li>
-                    ))}
-                </ul>
-            )
-        }
+
         if (this.state.reqErrors) {
             reqErrorsDisplay = (
                 <InfoMessage messageType='fail'>Could Not Register You. Check inputs or email already exists in our system.</InfoMessage>

@@ -10,8 +10,7 @@ export default class Backend extends Component {
 
     render() {
         return (
-            <div className={classes.Backend}> 
-                Back               
+            <div className={classes.Backend}>               
                 <Switch>
                     <Route path="/dashboard" exact component={Home} />
                     <Route path="/dashboard/addchild" component={AddChild} />

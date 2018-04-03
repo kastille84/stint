@@ -97,6 +97,29 @@ class Signin extends Component {
         }
 
     }
+
+    errorDisplay =  () => {
+        let errors= [];
+        let errorDisplay = null;
+
+        if(!this.state.isValid) {
+            for (let ctr in this.state.controls) {
+                if (this.state.controls[ctr].validation.length > 0) {
+                    errors.push(...this.state.controls[ctr].validation);
+                }
+            }
+            errorDisplay = (
+                <ul style={{listStyle: 'none'}}>
+                    {errors.map( (err, index) => (
+                        <li key={index}>
+                            <InfoMessage messageType="fail">{err}</InfoMessage>
+                        </li>
+                    ))}
+                </ul>
+            )
+        }
+        return errorDisplay;
+    }
     handleSubmit = (e) => {
         e.preventDefault();
         let tempIsValid = true;
@@ -159,26 +182,8 @@ class Signin extends Component {
             )
         }
         // display input errors
-        let errors= [];
-        let errorDisplay = null;
+        let errorDisplay = this.errorDisplay();
         let reqErrorsDisplay = null;
-
-        if(!this.state.isValid) {
-            for (let ctr in this.state.controls) {
-                if (this.state.controls[ctr].validation.length > 0) {
-                    errors.push(...this.state.controls[ctr].validation);
-                }
-            }
-            errorDisplay = (
-                <ul style={{listStyle: 'none'}}>
-                    {errors.map( (err, index) => (
-                        <li key={index}>
-                            <InfoMessage messageType="fail">{err}</InfoMessage>
-                        </li>
-                    ))}
-                </ul>
-            )
-        }
         if (this.state.reqErrors) {
             reqErrorsDisplay = <InfoMessage messageType="fail">Wrong Username/Password Combination</InfoMessage>;
         }

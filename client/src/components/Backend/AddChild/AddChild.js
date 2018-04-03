@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
+import ChildList from './ChildList/ChildList';
+import ChildForm from './ChildForm/ChildForm';
 
-const addChild = (props) => {
+class AddChild extends Component {
+    state = {
+        editMode: false
+    }
 
-    return (
-        <div>
-            Add/Edit Child Page
-        </div>
-    )
+    render() {
+        return (
+            <div>
+                Add/Edit Child Page
+    
+                <ChildList></ChildList>
+                <hr />
+                <ChildForm editMode={this.state.editMode}></ChildForm>
+            </div>
+        )
+    }
 }
 
-export default addChild;
+export default AddChild;

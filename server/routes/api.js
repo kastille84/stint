@@ -9,6 +9,7 @@ const randomString = require('random-string');
 const nodemailer = require('nodemailer');
 
 const Adult = require('../models/adult');
+const Child = require('../models/child');
 const {tks, email, pemail, urlEnv} = require('../config/config');
 
 mongoose.connect('mongodb://localhost:27017/stint');
@@ -154,6 +155,89 @@ router.post('/signin', [
                 return res.status(403).json({message: "Wrong email/password"});
             })
 });
+
+// ***  D A S H B O A R D 
+
+    // addChild
+router.post('/addChild', [
+        check('name')
+            .exists()
+            .trim()
+            .escape(),
+        check('pin')
+            .exists()
+            .trim()
+            .escape()
+    ], (req, res) => {
+    // check validity of values
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+        // there are some validation errors
+        //return res.status(400).json({errors: 'Something went wrong, check your input'});
+        return res.status(400).json({errors: 'Something went wrong, check your input'});
+    }
+    
+    let childId = null;
+    //empty ChoreSchedule Object
+    const scheduleObj = {
+        mon: {
+            chores: [],// will hold list of {choreName: '', completed: false}
+        },
+        tue: {
+            chores: [],
+        },
+        wed: {
+            chores: [],
+        },
+        thu: {
+            chores: [],
+        },
+        fri: {
+            chores: [],
+        },
+        sat: {
+            chores: [],
+        },
+        sun: {
+            chores: [],
+        },
+    };
+    // Child Schema, add child record
+    Child.create({
+        adultId: req.body.parentId,
+        name: req.body.name,
+        pin: req.body.pin,
+        schedule: scheduleObj
+    }, (err, child) =>{
+        if (err){
+            // could not add child to db
+            res.status(500).json({message: 'Could not add child'})
+        }
+        // at this point, child has been created
+        // Adult Schema, add a child to children array
+        Adult.findById(req.body.parentId, (err, adult) => {
+            if (err) {
+                // adult doesn't exist
+                res.status(500).json({message: 'No Adult'});
+            }
+            // updating children array
+            let children = adult.children;
+            children.push(child._id);
+            adult.update({children: children}).exec()
+                .then(result => {
+                    res.status(200).json({child: child});
+                }) 
+                .catch(err =>{
+                    res.status(500).json({message: "Could not update adult"})
+                });
+
+        })
+
+    })
+
+    
+    
+})
 
 //router.get('/users', (req, res) => {
     // User.find()

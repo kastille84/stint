@@ -12,8 +12,7 @@ export default class Frontend extends Component {
 
     render(){
         return (
-            <div className={classes.Frontend}>    
-            Front            
+            <div className={classes.Frontend}>            
                 <Switch>
                     <Route path="/" exact={true} component={Home} />        
                     <Route path='/about'  component={About} />

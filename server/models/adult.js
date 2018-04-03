@@ -21,10 +21,10 @@ const schema = new Schema({
         type: String,
         required: true
     },
-    children: {
-        type: Array,
-        default: []
-    },
+    children: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Child'   
+    }],
     verifyHash: {
         type: String
     },

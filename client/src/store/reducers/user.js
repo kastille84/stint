@@ -6,7 +6,7 @@ const initialState = {
     whichUserMode: false,
     user: null,
     isRegistered: false,
-    isSignedIn: false,
+    isSignedIn: false, // temp true, return to false
     isVerified: false
 }
 

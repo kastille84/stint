@@ -28,9 +28,7 @@ class App extends Component {
   render() {
     return (
       <div className={classes.App}>
-        <Navigation 
-            isLoggedIn={this.props.user.isSignedIn}
-            whichUser={this.props.user.whichUserMode}></Navigation>
+        <Navigation></Navigation>
         {this.props.user.isSignedIn? <Backend /> : <Frontend />}
                           
       </div>

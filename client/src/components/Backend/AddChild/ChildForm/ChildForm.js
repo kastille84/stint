@@ -119,9 +119,11 @@ class ChildForm extends Component {
                     .then(response => {
                         // we get child back from the response as response.data.child
                         // add that child to the user.children array
-                        this.props.onAddChild(response.data.child)
+                        this.props.onAddChild(response.data.child);
                     })
-                    .catch()
+                    .catch( (err) => {
+                        this.setState({reqErrors: "Could Not Add Child. Check Your Inputs."})
+                    })
             }
 
         }
@@ -132,10 +134,17 @@ class ChildForm extends Component {
 
     render() {
         let errorDisplay = this.errorDisplay();
+        let reqErrorsDisplay = null;
+        if (this.state.reqErrors) {
+            reqErrorsDisplay = (
+                <InfoMessage messageType='fail'>{this.state.reqErrors}</InfoMessage>
+            )
+        }
         return (
             <div className="container">
                 <div className="row">
                     <div className="col-md-6 offset-md-3 col-sm-8 offset-sm-2">
+                        {reqErrorsDisplay}
                         {errorDisplay}
                         <form  onSubmit={this.handleSubmit}>
                             <div className="form-group">

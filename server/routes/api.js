@@ -126,7 +126,8 @@ router.post('/signin', [
             return res.status(500).json({message: 'Invalid Inputs'});
         }
         // check email, password credentials
-        Adult.find({email: (req.body.email).toLowerCase()}).exec()
+        Adult.find({email: (req.body.email).toLowerCase()})
+            .populate('children').exec()
             .then(adult => {
                 // if adult hasn't been verified... don't go any further
                 if (adult.verified === false) {
@@ -233,11 +234,21 @@ router.post('/addChild', [
 
         })
 
-    })
-
-    
-    
+    })   
 })
+    // Get Family
+router.get('getfam/:id', (req, res) => {
+    console.log('got here');
+    const id = req.params._id;
+    Adult.findById(id)
+        .populate('children').exec()
+        .then(fam => {
+            return res.status(200).json({fam: fam});
+        })
+        .catch(err => {
+            return res.status(500).json({err: err});
+        })
+});
 
 //router.get('/users', (req, res) => {
     // User.find()

@@ -21,6 +21,13 @@ export const setUserType = (type) => {
     }
 }
 
+export const setUserChild = (child) => {
+    return {
+        type: actionTypes.SET_USER_CHILD,
+        child: child
+    }
+}
+
 export const setSigninUser = () => {
     return {
         type: actionTypes.SET_SIGNIN_USER

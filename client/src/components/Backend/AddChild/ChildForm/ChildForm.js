@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import * as actions from '../../../../store/actions/index';
 
 import InfoMessage from '../../../UI/Message/infoMessage';
 
@@ -116,8 +117,9 @@ class ChildForm extends Component {
                 // if NOT edit mode, hit diff api point
                 axios.post('/addChild', data)
                     .then(response => {
-                        // we get child back from the response as response.child
-                        
+                        // we get child back from the response as response.data.child
+                        // add that child to the user.children array
+                        this.props.onAddChild(response.data.child)
                     })
                     .catch()
             }
@@ -169,5 +171,10 @@ const mapStateToProps = (state) => {
         userRedux: state.userRedux
     }
 }
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onAddChild: (child) => dispatch(actions.setUserChild(child))
+    }
+}
 
-export default connect(mapStateToProps)(ChildForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ChildForm);

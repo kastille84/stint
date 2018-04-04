@@ -3,6 +3,7 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     userType: null,
+    userId: null,
     whichUserMode: false,
     user: null,
     isRegistered: false,
@@ -21,6 +22,13 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 user: action.user
+            }
+        case actionTypes.SET_USER_CHILD:
+            const updatedUser = {...state.user};
+                updatedUser.children.push(action.child);
+            return {
+                ...state,
+                user: updatedUser
             }
         case actionTypes.SET_USER_TYPE:
             return {

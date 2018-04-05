@@ -157,6 +157,44 @@ router.post('/signin', [
             })
 });
 
+// pin submission
+router.post('/pin-submit', [
+        check('pin')
+        .exists()
+        .trim()
+        .escape()
+    ], (req, res) => {
+    // validate values
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+        return res.status(500).json({message: 'Invalid Inputs'});
+    }
+    console.log('whoId', req.body.whoId)
+    console.log('whoType', req.body.whoType);
+    // 
+    if (req.body.whoType === 'adult'){
+        Adult.findOne({_id: req.body.whoId, pin: req.body.pin}).exec()
+            .then(adult => {
+                res.status(200).json({type: 'adult', _id: adult._id})
+            })
+            .catch(err =>{
+                res.status(500).json({error: "Wrong Pin"})
+            })
+    }
+    if (req.body.whoType === 'child') {
+        Child.findOne({_id: req.body.whoId, pin: req.body.pin}).exec()
+            .then(child => {
+                res.status(200).json({type: 'child', _id: child._id})
+            })
+            .catch(err =>{
+                res.status(500).json({error: "Wrong Pin"})
+            })
+    }
+
+
+    
+})
+
 // ***  D A S H B O A R D 
 
     // addChild

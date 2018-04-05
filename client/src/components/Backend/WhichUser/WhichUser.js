@@ -111,7 +111,7 @@ class WhichUser extends Component {
                     this.props.onSetUserType(response.data.type);
 
                     //redirect to dashboard home. Dashboard should take careof dealign with parent or child view
-                    
+                    this.props.history.push('/dashboard')
                 })
                 .catch()
 
@@ -189,7 +189,11 @@ class WhichUser extends Component {
                                                 
                                             />
                                         </div>
-                                        <button className="btn btn-primary">Pin</button>
+                                        <button 
+                                            className="btn btn-primary"
+                                            data-type="child"
+                                            data-id={child._id}
+                                            onClick={this.btnFormClick}>Pin</button>
                                     </form>                        
                                 </div>
                             )

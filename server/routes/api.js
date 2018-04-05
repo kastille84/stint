@@ -130,25 +130,31 @@ router.post('/signin', [
             .populate('children').exec()
             .then(adult => {
                 // if adult hasn't been verified... don't go any further
-                if (adult.verified === false) {
+                if (adult[0].verified === false) {
+                    
                     return res.status(500).json({message: "We emailed you the verfication steps the finish setting up your account."})
                 }
                 //verified at this point
                 bcrypt.compare((req.body.password).toLowerCase(), adult[0].password, (err, same) =>{
                     if (err) {
+                        console.log('got hurr');
                         return res.status(500).json({message: 'Could not login. Try again later'});
                     }
                     if (same) {
                         // passwords match
                             // create token
-                            const token = jwt.sign({id: adult._id}, tks, {expiresIn: '2h'});
+                            const token = jwt.sign({id: adult[0]._id}, tks, {expiresIn: '2h'});
                             // send token & success message
                             // ALSO... send the adult data obj
                             return res.status(200).json({
                                 token: token,
                                 user: adult[0]
                             });
+                    }else {
+                        // not Email/Password Match
+                        return res.status(500).json({message: 'Could not login. Try again later'});
                     }
+
                 })
             })
             .catch(error => {
@@ -169,8 +175,6 @@ router.post('/pin-submit', [
     if (!result.isEmpty()) {
         return res.status(500).json({message: 'Invalid Inputs'});
     }
-    console.log('whoId', req.body.whoId)
-    console.log('whoType', req.body.whoType);
     // 
     if (req.body.whoType === 'adult'){
         Adult.findOne({_id: req.body.whoId, pin: req.body.pin}).exec()

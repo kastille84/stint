@@ -48,8 +48,8 @@ class Navigation extends Component {
                 </nav>
             )        
         }
-        // Logged in Navigation
-        if (this.props.user.isSignedIn && !this.props.user.whichUserMode) {
+        // Logged in Navigation - ADULT
+        if (this.props.user.isSignedIn && !this.props.user.whichUserMode && this.props.user.userType==='adult') {
             navigation = (
                 <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
                     <NavLink to="/" className="navbar-brand">Stint</NavLink>
@@ -69,6 +69,30 @@ class Navigation extends Component {
                             </li>
                             <li className="nav-item">
                                 <NavLink to="/dashboard/" className="nav-link">ChoreList</NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink to="/dashboard/" className="nav-link">Signout</NavLink>
+                            </li>
+                        </ul>            
+                    </div>
+                </nav>
+            )
+        }
+        // Logged in Navigation - CHILD
+        if (this.props.user.isSignedIn && !this.props.user.whichUserMode && this.props.user.userType==='child') {
+            navigation = (
+                <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+                    <NavLink to="/" className="navbar-brand">Stint</NavLink>
+                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                    </button>    
+                    <div className="collapse navbar-collapse" id="navbarsExampleDefault">
+                        <ul className="navbar-nav mr-auto">
+                            <li className="nav-item active">
+                                <NavLink to="/dashboard" className="nav-link">Home</NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink to="/dashboard/" className="nav-link">Chores</NavLink>
                             </li>
                             <li className="nav-item">
                                 <NavLink to="/dashboard/" className="nav-link">Signout</NavLink>

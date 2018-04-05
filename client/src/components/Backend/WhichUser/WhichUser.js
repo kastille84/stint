@@ -113,7 +113,9 @@ class WhichUser extends Component {
                     //redirect to dashboard home. Dashboard should take careof dealign with parent or child view
                     this.props.history.push('/dashboard')
                 })
-                .catch()
+                .catch(err => {
+                    this.setState({reqErrors: 'Incorrect Pin'});
+                })
 
         }
         // else state.isValid remains false
@@ -129,9 +131,9 @@ class WhichUser extends Component {
     
     render() {
         let errorDisplay = this.errorDisplay();
-        let reqErrorsDisplay = null;
+        let reqErrorsDisplay = this.state.reqErrors;
         if (this.state.reqErrors) {
-            reqErrorsDisplay = <InfoMessage messageType="fail">Wrong Username/Password Combination</InfoMessage>;
+            reqErrorsDisplay = <InfoMessage messageType="fail">{this.state.reqErrors}</InfoMessage>;
         }
         return (
             <div className="container">

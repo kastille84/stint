@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import * as actions from '../../../store/actions/index';
 
 import InfoMessage from '../../UI/Message/infoMessage';
 
@@ -104,8 +105,13 @@ class WhichUser extends Component {
            axios.post('/pin-submit', data)
                 .then(response => {
                     // dispatch to set whichUser to false
-
+                    this.props.onSetWhichUser(false);
                     // dispatch to set userType  & userId to response.data
+                    this.props.onSetUserId(response.data._id);
+                    this.props.onSetUserType(response.data.type);
+
+                    //redirect to dashboard home. Dashboard should take careof dealign with parent or child view
+                    
                 })
                 .catch()
 
@@ -202,4 +208,12 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(WhichUser);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onSetWhichUser: (val) =>{ dispatch(actions.setWhichUserMode(val))},
+        onSetUserType: (val) => {dispatch(actions.setUserType(val))},
+        onSetUserId: (val) => { dispatch(actions.setUserId(val))}
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WhichUser);

@@ -161,7 +161,7 @@ class Signin extends Component {
                         this.props.history.push('/dashboard');
                     } else {
                         // there's children, WhichuserMode is true
-                        this.props.onSetWhichUserMode();
+                        this.props.onSetWhichUserMode(true);
                         // whichuser will set userType, and id
                         this.props.history.push('/dashboard/whichuser');
                     }

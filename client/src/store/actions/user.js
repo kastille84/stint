@@ -21,6 +21,13 @@ export const setUserType = (type) => {
     }
 }
 
+export const setUserId = (id) => {
+    return {
+        type: actionTypes.SET_USER_ID,
+        userId: id
+    }
+}
+
 export const setUserChild = (child) => {
     return {
         type: actionTypes.SET_USER_CHILD,
@@ -34,8 +41,9 @@ export const setSigninUser = () => {
     }
 }
 
-export const setWhichUserMode = () => {
+export const setWhichUserMode = (val) => {
     return {
-        type: actionTypes.SET_WHICH_USER_MODE
+        type: actionTypes.SET_WHICH_USER_MODE,
+        val: val
     }
 }

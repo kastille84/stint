@@ -1,5 +1,6 @@
 export const SET_USER = 'SET_USER';
 export const SET_USER_TYPE = 'SET_USER_TYPE';
+export const SET_USER_ID = 'SET_USER_ID';
 export const SET_USER_CHILD = 'SET_USER_CHILD';
 export const SET_USER_REGISTERED_TRUE = 'SET_USER_REGISTERED_TRUE';
 export const SET_SIGNIN_USER = 'SET_SIGNIN_USER';

@@ -35,6 +35,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 userType: action.userType
             }
+        case actionTypes.SET_USER_ID:
+            return {
+                ...state,
+                userId: action.userId
+            }
         case actionTypes.SET_SIGNIN_USER:
             return {
                 ...state,
@@ -43,7 +48,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.SET_WHICH_USER_MODE:
             return {
                 ...state,
-                whichUserMode: true
+                whichUserMode: action.val
             }
         default:
             return state;

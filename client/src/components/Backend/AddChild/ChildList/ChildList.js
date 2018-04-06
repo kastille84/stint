@@ -8,26 +8,40 @@ class ChildList extends Component {
         if (this.props.userRedux.user.children.length === 0) {
             return <p>No children yet. Complete the form below to add a child.</p>;
         }
-        // At this point, we have children
-        // axios.get('/getfam/'+ this.props.userRedux.user._id)
-        //     .then(fam => {
-        //         console.log('fam', fam);
-        //     })
-        //     .catch()
-            //# TODO- currently only have child_id in children array
-            // may need to create a generic api that gets the parent populated with the children
+       
         let childrenArray = this.props.userRedux.user.children.map(child => {
             return (
                 <li key={child._id} className="list-group-item">
                     {child.name} 
                     <span>
-                        <button className="btn btn-info">Edit</button>
-                        <button className="btn btn-danger">Delete</button>
+                        <button 
+                        className="btn btn-info"
+                        onClick={this.onEdit}
+                        data-id={child._id}
+                        >Edit</button>
+                        <button 
+                            className="btn btn-danger"
+                            data-id={child._id}
+                            onClick={this.onDelete}
+                            >Delete</button>
                     </span>
                 </li>
             )
         });
         return childrenArray;
+    }
+
+    onEdit = (e) => {
+        const id = e.target.dataset.id;
+        const child = this.props.userRedux.user.children.filter( child => {
+            return child._id === id;
+        })
+        // call this.props.editChild()
+        this.props.editChild(child[0]);
+    }
+
+    onDelete = (e) => {
+        console.log(e.target.dataset.id)
     }
 
     render() {
@@ -41,8 +55,16 @@ class ChildList extends Component {
                             <li key={child._id} className="list-group-item">
                                 {child.name} 
                                 <span>
-                                    <button className="btn btn-info">Edit</button>
-                                    <button className="btn btn-danger">Delete</button>
+                                    <button 
+                                        className="btn btn-info"
+                                        onClick={this.onEdit}
+                                        data-id={child._id}
+                                        >Edit</button>
+                                    <button 
+                                        className="btn btn-danger"
+                                        data-id={child._id}
+                                        onClick={this.onDelete}
+                                        >Delete</button>
                                 </span>
                             </li>
                         )

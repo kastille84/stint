@@ -5,7 +5,13 @@ import ChildForm from './ChildForm/ChildForm';
 class AddChild extends Component {
     state = {
         editMode: false,
-        addedChildren: []
+        addedChildren: [],
+        editChild: null
+    }
+
+    onEditChild = (child) => {
+        this.setState({editMode: true});
+        this.setState({editChild: child});
     }
 
     onAddedChildren = (child) =>{
@@ -19,10 +25,14 @@ class AddChild extends Component {
             <div>
                 Add/Edit Child Page
     
-                <ChildList addedChildren={this.state.addedChildren}></ChildList>
+                <ChildList 
+                    addedChildren={this.state.addedChildren}
+                    editChild={this.onEditChild}
+                ></ChildList>
                 <hr />
                 <ChildForm 
                     editMode={this.state.editMode}
+                    editChild={this.state.editChild}
                     addedChildren={this.onAddedChildren}></ChildForm>
             </div>
         )

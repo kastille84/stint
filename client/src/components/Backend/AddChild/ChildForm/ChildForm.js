@@ -22,6 +22,7 @@ class ChildForm extends Component {
         reqErrors: null
     }
 
+
     inputChanged = (event) => {
         let updatedControls = {...this.state.controls};
         const inputName = event.target.name;
@@ -139,7 +140,8 @@ class ChildForm extends Component {
             reqErrorsDisplay = (
                 <InfoMessage messageType='fail'>{this.state.reqErrors}</InfoMessage>
             )
-        }
+        }        
+
         return (
             <div className="container">
                 <div className="row">
@@ -154,6 +156,7 @@ class ChildForm extends Component {
                                     className="form-control" 
                                     name="name"
                                     onChange={this.inputChanged}
+                                    value={this.props.editChild? this.props.editChild.name : ''}
                                 />
                             </div>
                             <div className="form-group">
@@ -164,9 +167,13 @@ class ChildForm extends Component {
                                     name="pin"
                                     maxLength="4"
                                     onChange={this.inputChanged}
+                                    value={this.props.editChild? this.props.editChild.pin : ''}
                                     />
                             </div>
-                            <button className="btn btn-success">{this.props.editMode? 'Edit': 'Add' }</button>
+                            <button 
+                                className="btn btn-success"
+                                
+                                >{this.props.editMode? 'Edit': 'Add' }</button>
                         </form>
                     </div>
                 </div>

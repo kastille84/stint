@@ -2,8 +2,14 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actions from '../../../../store/actions/index';
+import InfoMessage from '../../../UI/Message/infoMessage';
 
 class ChildList extends Component {
+    state = {
+        reqErrors : null,
+        deleteMessage: false,
+        deleteId: null
+    }
     
     // get child list from userRedux. if no child return false
     getChildList = () => {
@@ -24,9 +30,19 @@ class ChildList extends Component {
                         <button 
                             className="btn btn-danger"
                             data-id={child._id}
-                            onClick={this.onDelete}
+                            onClick={this.onDeleteCheck}
                             >Delete</button>
                     </span>
+                    { (this.state.deleteMessage && this.state.deleteId === child._id)? (
+                        <span> Are you sure? 
+                            <button 
+                                className="btn btn-default" 
+                                data-id={child._id}
+                                onClick={this.onDeleteConfirm}>yes</button>
+                            <button 
+                                className="btn btn-default" 
+                                onClick={this.onDeleteCancel}>no</button></span>) 
+                : null}
                 </li>
             )
         });
@@ -44,6 +60,19 @@ class ChildList extends Component {
         this.props.onEditMode(true);
     }
 
+    onDeleteCheck = (e) => {
+        this.setState({deleteMessage: true});
+        this.setState({deleteId: e.target.dataset.id});
+    }
+
+    onDeleteConfirm = (e) => {
+        this.onDelete(e);
+    }
+    onDeleteCancel = () => {
+        this.setState({deleteMessage: false});
+        this.setState({deleteId: null});
+    }
+
     onDelete = (e) => {
         const id = e.target.dataset.id;
         // const child = this.props.userRedux.user.children.filter( child => {
@@ -56,7 +85,7 @@ class ChildList extends Component {
                 this.props.onDeleteChild(id);
             })
             .catch(err => {
-
+                this.setState({reqErrors: 'Could not delete user'});
             })
     }
 
@@ -64,6 +93,7 @@ class ChildList extends Component {
         return (
             <div>
                 ChildList
+                {this.state.reqErrors? <InfoMessage messageType="fail">{this.setState.reqErrors}</InfoMessage>: null}
                 <ul className="list-group">
                     {this.getChildList()}
                     {this.props.addedChildren? this.props.addedChildren.map(child => {
@@ -79,9 +109,19 @@ class ChildList extends Component {
                                     <button 
                                         className="btn btn-danger"
                                         data-id={child._id}
-                                        onClick={this.onDelete}
+                                        onClick={this.onDeleteCheck}
                                         >Delete</button>
                                 </span>
+                                {(this.state.deleteMessage && this.state.deleteId === child._id)? (
+                                        <span> Are you sure? 
+                                            <button 
+                                                className="btn btn-default" 
+                                                data-id={child._id}
+                                                onClick={this.onDeleteConfirm}>yes</button>
+                                            <button 
+                                                className="btn btn-default" 
+                                                onClick={this.onDeleteCancel}>no</button></span>) 
+                                : null}
                             </li>
                         )
                     }): null}

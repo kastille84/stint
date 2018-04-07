@@ -29,8 +29,6 @@ class ChildForm extends Component {
     }
 
     inputChanged = (event) => {
-        
-
         let updatedControls = {...this.state.controls};
         const inputName = event.target.name;
         let updatedInput = updatedControls[inputName];

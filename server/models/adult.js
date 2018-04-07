@@ -25,6 +25,10 @@ const schema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Child'   
     }],
+    choreList: {
+        type: Array,
+        default: []
+    },
     verifyHash: {
         type: String
     },

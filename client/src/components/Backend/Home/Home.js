@@ -35,9 +35,9 @@ class Home extends Component {
                 <div>
                     <h1 className="mb-2">Hey {this.props.userRedux.user.name}</h1>
                     {noChildren}
-                    <h3 className="btn"><Link to="/dashboard/addChild">Add / Edit Child</Link></h3>
+                    <h3 className="btn"><Link to="/dashboard/addchild">Add / Edit Child</Link></h3>
                     {!noChildren ? 
-                        <h3 className="btn"><Link to="/dashboard/addChoreList">Add / Edit Chore List</Link></h3>
+                        <h3 className="btn"><Link to="/dashboard/addChore">Add / Edit Chore List</Link></h3>
                         
                     :null}
                 </div>

@@ -65,10 +65,10 @@ class Navigation extends Component {
                                 <NavLink to="/dashboard/addChild" className="nav-link">Children</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink to="/dashboard/" className="nav-link">Chores</NavLink>
+                                <NavLink to="/dashboard/" className="nav-link">ChoreCharts</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink to="/dashboard/" className="nav-link">ChoreList</NavLink>
+                                <NavLink to="/dashboard/addChore" className="nav-link">ChoreList</NavLink>
                             </li>
                             <li className="nav-item">
                                 <NavLink to="/dashboard/" className="nav-link">Signout</NavLink>
@@ -92,7 +92,7 @@ class Navigation extends Component {
                                 <NavLink to="/dashboard" className="nav-link">Home</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink to="/dashboard/" className="nav-link">Chores</NavLink>
+                                <NavLink to="/dashboard/" className="nav-link">ChoreChart</NavLink>
                             </li>
                             <li className="nav-item">
                                 <NavLink to="/dashboard/" className="nav-link">Signout</NavLink>

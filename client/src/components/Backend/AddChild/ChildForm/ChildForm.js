@@ -120,7 +120,7 @@ class ChildForm extends Component {
         // else isValid stays False
         const data = {};
             // add parent's id
-            data['adultId'] = this.props.userRedux.user._id;
+        data['adultId'] = this.props.userRedux.user._id;
         for (let ctr in this.state.controls) {
             data[ctr] = this.state.controls[ctr].value;
             // validation check
@@ -162,6 +162,8 @@ class ChildForm extends Component {
                 // if NOT edit mode, hit diff api point
                 axios.post('/addChild', data)
                     .then(response => {
+                        document.getElementById('name').value = '';
+                        document.getElementById('pin').value ='';
                         // we get child back from the response as response.data.child
                         // add that child to the user.children array
                         this.props.onAddChild(response.data.child);

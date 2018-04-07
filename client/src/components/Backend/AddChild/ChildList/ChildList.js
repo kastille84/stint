@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actions from '../../../../store/actions/index';
 
@@ -44,7 +45,19 @@ class ChildList extends Component {
     }
 
     onDelete = (e) => {
-        console.log(e.target.dataset.id)
+        const id = e.target.dataset.id;
+        // const child = this.props.userRedux.user.children.filter( child => {
+        //     return child._id === id;
+        // })
+        // axios call
+        axios.delete('/delete/'+ id)
+            .then(response => {
+                // delete child on redux
+                this.props.onDeleteChild(id);
+            })
+            .catch(err => {
+
+            })
     }
 
     render() {
@@ -87,7 +100,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch => {
     return {
         onEditChild: (child) => dispatch(actions.setEditChild(child)),
-        onEditMode: (bool) => dispatch(actions.setEditMode(bool))
+        onEditMode: (bool) => dispatch(actions.setEditMode(bool)),
+        onDeleteChild: (id) => dispatch(actions.setDeleteChild(id))
     }
 })
 

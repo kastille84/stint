@@ -67,3 +67,9 @@ export const setEditMode = (bool) => {
         bool: bool
     }
 }
+export const setDeleteChild = (id) => {
+    return {
+        type: actionTypes.SET_DELETE_CHILD,
+        id: id
+    }
+}

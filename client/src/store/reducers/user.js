@@ -14,6 +14,9 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
+    let user = '';
+    let children = '';
+    let childrenArr = '';
     switch(action.type) {
         case actionTypes.SET_USER_REGISTERED_TRUE:
             return {
@@ -58,15 +61,14 @@ const reducer = (state = initialState, action) => {
                 editChild: action.child
             }
         case actionTypes.SET_UPDATE_CHILD:
-            let user = {...state.user};
-            let children = [...state.user.children];
-            let childrenArr = children.map(child => {
+            user = {...state.user};
+            children = [...state.user.children];
+            childrenArr = children.map(child => {
                 if (child._id === action.child._id) {
                     return action.child;
                 }
                 return child;
             })
-
             user['children'] = childrenArr;
             return {
                 ...state,
@@ -77,6 +79,18 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 editMode: action.bool
             }
+        case actionTypes.SET_DELETE_CHILD:
+            user = {...state.user};
+            children = [...state.user.children];
+            childrenArr = children.filter(child => {
+                return child._id !== action.id
+            })
+            user['children'] = childrenArr;
+            return {
+                ...state,
+                user: user
+            }
+
         default:
             return state;
     }

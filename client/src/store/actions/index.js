@@ -8,5 +8,6 @@ export {
     setWhichUserMode,
     setEditChild,
     setUpdateChild,
-    setEditMode
+    setEditMode,
+    setDeleteChild
 } from './user';

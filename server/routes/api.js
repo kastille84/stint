@@ -137,7 +137,6 @@ router.post('/signin', [
                 //verified at this point
                 bcrypt.compare((req.body.password).toLowerCase(), adult[0].password, (err, same) =>{
                     if (err) {
-                        console.log('got hurr');
                         return res.status(500).json({message: 'Could not login. Try again later'});
                     }
                     if (same) {
@@ -247,7 +246,7 @@ router.post('/addChild', [
     };
     // Child Schema, add child record
     Child.create({
-        adultId: req.body.parentId,
+        adultId: req.body.adultId,
         name: req.body.name,
         pin: req.body.pin,
         schedule: scheduleObj
@@ -309,9 +308,39 @@ router.post('/editChild', [
         })
 });
 
+// Delete Child
+router.delete('/delete/:id', (req, res) => {
+    const child_id = req.params['id'];
+    // delete from child collection
+    Child.findByIdAndRemove(child_id).exec()
+        .then(child_res => {
+            // delete from adult collection
+            Adult.findOne({_id: child_res.adultId}).exec()
+                .then(adult => {
+                    // find child and remove.. then save
+                    let childrenArr = adult.children.filter(childObId => {
+                        return !childObId.equals(child_res._id)
+                    });
+                    adult.children = childrenArr;
+                    adult.save( (err, updatedAdult) => {
+                        if (err) {
+                            res.status(500).json({message: 'could not save'});
+                        }
+                        // CHILD DELETED FROM CHILD & ADULT COLLECTION
+                        res.status(200).json({message: 'success'});
+                    })
+                })
+                .catch(err => {
+                    res.status(500).json({message: 'fail 1'});
+                })
+        })
+        .catch(err => {
+            res.status(500).json({message: 'fail 2'});
+        })
+});
+
     // Get Family
 router.get('/getfam/:id', (req, res) => {
-    console.log('got here');
     const id = req.params._id;
     Adult.findById(id)
         .populate('children').exec()

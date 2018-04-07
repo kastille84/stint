@@ -57,6 +57,21 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 editChild: action.child
             }
+        case actionTypes.SET_UPDATE_CHILD:
+            let user = {...state.user};
+            let children = [...state.user.children];
+            let childrenArr = children.map(child => {
+                if (child._id === action.child._id) {
+                    return action.child;
+                }
+                return child;
+            })
+
+            user['children'] = childrenArr;
+            return {
+                ...state,
+                user: user
+            }
         case actionTypes.SET_EDIT_MODE:
             return {
                 ...state,

@@ -8,6 +8,7 @@ export const SET_WHICH_USER_MODE = 'SET_WHICH_USER_MODE';
 export const SIGNIN_OUT = 'SIGNIN_OUT';
 
 export const SET_EDIT_CHILD = 'SET_EDIT_CHILD';
+export const SET_UPDATE_CHILD = 'SET_UPDATE_CHILD';
 export const SET_EDIT_MODE = 'SET_EDIT_MODE';
 
 export const REMOVE_USER = 'REMOVE_USER';

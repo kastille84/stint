@@ -120,7 +120,7 @@ class ChildForm extends Component {
         // else isValid stays False
         const data = {};
             // add parent's id
-            data['parentId'] = this.props.userRedux.user._id;
+            data['adultId'] = this.props.userRedux.user._id;
         for (let ctr in this.state.controls) {
             data[ctr] = this.state.controls[ctr].value;
             // validation check
@@ -132,10 +132,9 @@ class ChildForm extends Component {
         this.setState({isValid: tempIsValid});
         if (tempIsValid) {
             // if edit mode, hit diff api point
-                // add child's id
-            data['childId'] = this.props.userRedux.editChild._id;
             if (this.props.userRedux.editMode) {
-                console.log('im here edit', data);
+                    // add child's id
+                data['childId'] = this.props.userRedux.editChild._id;
                 // we have the data so 
                 //we need to clear the forms input
                 let upControls = {...this.state.controls};
@@ -149,6 +148,15 @@ class ChildForm extends Component {
                 this.props.onEditMode(false);
                 //this.props.history.push('/dashboard/addChild');
                 //axios call
+                axios.post('/editChild', data)
+                    .then(response => {
+                        // update child in redux
+                        console.log(response.data.child);
+                        this.props.onUpdateChild(response.data.child);
+                    })
+                    .catch({
+
+                    });
 
             } else {
                 // if NOT edit mode, hit diff api point
@@ -183,7 +191,7 @@ class ChildForm extends Component {
                     <div className="col-md-6 offset-md-3 col-sm-8 offset-sm-2">
                         {reqErrorsDisplay}
                         {errorDisplay}
-                        {this.props.userRedux.editMode? <InfoMessage messageType="info">`Edit ${this.props.userRedux.editChild.name}`</InfoMessage>: 'Add a Child' }
+                        {this.props.userRedux.editMode? <InfoMessage messageType="info">Edit {this.props.userRedux.editChild.name}</InfoMessage>: <h3>Add New Child</h3> }
                         <form  onSubmit={this.handleSubmit}>
                             <div className="form-group">
                                 <label>Name</label>
@@ -229,7 +237,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onAddChild: (child) => dispatch(actions.setUserChild(child)),
         onEditChild: (child) => dispatch(actions.setEditChild(child)),
-        onEditMode: (bool) => dispatch(actions.setEditMode(bool))
+        onEditMode: (bool) => dispatch(actions.setEditMode(bool)),
+        onUpdateChild: (child) => dispatch(actions.setUpdateChild(child))
     }
 }
 

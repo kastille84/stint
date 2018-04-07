@@ -258,7 +258,7 @@ router.post('/addChild', [
         }
         // at this point, child has been created
         // Adult Schema, add a child to children array
-        Adult.findById(req.body.parentId, (err, adult) => {
+        Adult.findById(req.body.adultId, (err, adult) => {
             if (err) {
                 // adult doesn't exist
                 res.status(500).json({message: 'No Adult'});
@@ -277,9 +277,40 @@ router.post('/addChild', [
         })
 
     })   
-})
+});
+
+// Edit Child
+router.post('/editChild', [
+        check('name')
+            .exists()
+            .trim()
+            .escape(),
+        check('pin')
+            .exists()
+            .trim()
+            .escape()
+    ],(req, res) => {
+    // check validity of values
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+        // there are some validation errors
+        return res.status(400).json({errors: 'Something went wrong, check your input'});
+    }
+
+    Child.findByIdAndUpdate(req.body.childId, {
+        name: req.body.name,
+        pin: req.body.pin
+    }, {new: true}).exec()
+        .then(child => {
+            return res.status(200).json({child: child});
+        })
+        .catch(err =>{
+            return res.status(500).json({err: 'No Child'})
+        })
+});
+
     // Get Family
-router.get('getfam/:id', (req, res) => {
+router.get('/getfam/:id', (req, res) => {
     console.log('got here');
     const id = req.params._id;
     Adult.findById(id)

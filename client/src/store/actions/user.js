@@ -54,6 +54,13 @@ export const setEditChild = (child) => {
         child: child
     }
 }
+
+export const setUpdateChild = (child) => {
+    return {
+        type: actionTypes.SET_UPDATE_CHILD,
+        child: child
+    }
+}
 export const setEditMode = (bool) => {
     return {
         type: actionTypes.SET_EDIT_MODE,

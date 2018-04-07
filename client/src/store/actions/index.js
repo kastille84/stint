@@ -5,5 +5,7 @@ export {
     setUserId,
     setUserChild,
     setSigninUser,
-    setWhichUserMode
+    setWhichUserMode,
+    setEditChild,
+    setEditMode
 } from './user';

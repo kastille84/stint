@@ -47,3 +47,16 @@ export const setWhichUserMode = (val) => {
         val: val
     }
 }
+
+export const setEditChild = (child) => {
+    return {
+        type:actionTypes.SET_EDIT_CHILD,
+        child: child
+    }
+}
+export const setEditMode = (bool) => {
+    return {
+        type: actionTypes.SET_EDIT_MODE,
+        bool: bool
+    }
+}

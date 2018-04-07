@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import * as actions from '../../../../store/actions/index';
 
 class ChildList extends Component {
     
@@ -37,7 +38,9 @@ class ChildList extends Component {
             return child._id === id;
         })
         // call this.props.editChild()
-        this.props.editChild(child[0]);
+        // this.props.editChild(child[0]);
+        this.props.onEditChild(child[0]);
+        this.props.onEditMode(true);
     }
 
     onDelete = (e) => {
@@ -81,4 +84,11 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(ChildList);
+const mapDispatchToProps = (dispatch => {
+    return {
+        onEditChild: (child) => dispatch(actions.setEditChild(child)),
+        onEditMode: (bool) => dispatch(actions.setEditMode(bool))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChildList);

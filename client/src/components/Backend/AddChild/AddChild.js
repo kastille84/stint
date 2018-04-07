@@ -4,15 +4,15 @@ import ChildForm from './ChildForm/ChildForm';
 
 class AddChild extends Component {
     state = {
-        editMode: false,
+        //editMode: false,
         addedChildren: [],
-        editChild: null
+        //editChild: null
     }
 
-    onEditChild = (child) => {
-        this.setState({editMode: true});
-        this.setState({editChild: child});
-    }
+    // onEditChild = (child) => {
+    //     this.setState({editMode: true});
+    //     this.setState({editChild: child});
+    // }
 
     onAddedChildren = (child) =>{
         let childrenCopy = [...this.state.children];
@@ -27,12 +27,9 @@ class AddChild extends Component {
     
                 <ChildList 
                     addedChildren={this.state.addedChildren}
-                    editChild={this.onEditChild}
                 ></ChildList>
                 <hr />
                 <ChildForm 
-                    editMode={this.state.editMode}
-                    editChild={this.state.editChild}
                     addedChildren={this.onAddedChildren}></ChildForm>
             </div>
         )

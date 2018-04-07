@@ -8,7 +8,9 @@ const initialState = {
     user: null,
     isRegistered: false,
     isSignedIn: false, // temp true, return to false
-    isVerified: false
+    isVerified: false,
+    editMode: null,
+    editChild: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -49,6 +51,16 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 whichUserMode: action.val
+            }
+        case actionTypes.SET_EDIT_CHILD:
+            return {
+                ...state,
+                editChild: action.child
+            }
+        case actionTypes.SET_EDIT_MODE:
+            return {
+                ...state,
+                editMode: action.bool
             }
         default:
             return state;

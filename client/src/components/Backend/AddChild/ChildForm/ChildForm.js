@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {withRouter} from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actions from '../../../../store/actions/index';
@@ -17,13 +18,19 @@ class ChildForm extends Component {
                 validation: []
             }
         },
-        editMode : false,
         isValid: false,
+        isNameTouched: false,
+        isPinTouched: false,
         reqErrors: null
     }
 
+    componentWillReceiveProps() {
+
+    }
 
     inputChanged = (event) => {
+        
+
         let updatedControls = {...this.state.controls};
         const inputName = event.target.name;
         let updatedInput = updatedControls[inputName];
@@ -94,6 +101,19 @@ class ChildForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
+        // Edit Mode
+        if (this.props.userRedux.editMode ) {
+            let upControls = {...this.state.controls};
+
+            if (this.state.controls['name'].value==='') {
+                upControls['name'].value = this.props.userRedux.editChild.name;
+            }
+            if (this.state.controls['pin'].value==='') {
+                upControls['pin'].value = this.props.userRedux.editChild.pin;
+            }
+            this.setState({controls: upControls});
+        } 
+
         let tempIsValid = true;
         // construct data to send to server && check
         //if all controls have empty arrays, set isValid to True
@@ -112,8 +132,24 @@ class ChildForm extends Component {
         this.setState({isValid: tempIsValid});
         if (tempIsValid) {
             // if edit mode, hit diff api point
-            if (this.state.editMode) {
-    
+                // add child's id
+            data['childId'] = this.props.userRedux.editChild._id;
+            if (this.props.userRedux.editMode) {
+                console.log('im here edit', data);
+                // we have the data so 
+                //we need to clear the forms input
+                let upControls = {...this.state.controls};
+                    upControls['name'].value = '';
+                    upControls['pin'].value = '';                
+                this.setState({controls: upControls});
+                document.getElementById('name').value = '';
+                document.getElementById('pin').value ='';
+                // or chage edit mode to false & editchild to null
+                this.props.onEditChild(null);
+                this.props.onEditMode(false);
+                //this.props.history.push('/dashboard/addChild');
+                //axios call
+
             } else {
                 // if NOT edit mode, hit diff api point
                 axios.post('/addChild', data)
@@ -126,7 +162,6 @@ class ChildForm extends Component {
                         this.setState({reqErrors: "Could Not Add Child. Check Your Inputs."})
                     })
             }
-
         }
         
 
@@ -148,15 +183,17 @@ class ChildForm extends Component {
                     <div className="col-md-6 offset-md-3 col-sm-8 offset-sm-2">
                         {reqErrorsDisplay}
                         {errorDisplay}
+                        {this.props.userRedux.editMode? <InfoMessage messageType="info">`Edit ${this.props.userRedux.editChild.name}`</InfoMessage>: 'Add a Child' }
                         <form  onSubmit={this.handleSubmit}>
                             <div className="form-group">
                                 <label>Name</label>
                                 <input 
                                     type="text" 
                                     className="form-control" 
+                                    id='name'
                                     name="name"
                                     onChange={this.inputChanged}
-                                    value={this.props.editChild? this.props.editChild.name : ''}
+                                    placeholder={this.props.userRedux.editMode? this.props.userRedux.editChild.name : ''}
                                 />
                             </div>
                             <div className="form-group">
@@ -164,16 +201,17 @@ class ChildForm extends Component {
                                 <input 
                                     type="text" 
                                     className="form-control" 
+                                    id="pin"
                                     name="pin"
                                     maxLength="4"
                                     onChange={this.inputChanged}
-                                    value={this.props.editChild? this.props.editChild.pin : ''}
+                                    placeholder={this.props.userRedux.editMode? this.props.userRedux.editChild.pin : ''}
                                     />
                             </div>
                             <button 
                                 className="btn btn-success"
-                                
-                                >{this.props.editMode? 'Edit': 'Add' }</button>
+
+                                >{this.props.userRedux.editMode? `Edit ${this.props.userRedux.editChild.name}`: 'Add' }</button>
                         </form>
                     </div>
                 </div>
@@ -189,8 +227,10 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        onAddChild: (child) => dispatch(actions.setUserChild(child))
+        onAddChild: (child) => dispatch(actions.setUserChild(child)),
+        onEditChild: (child) => dispatch(actions.setEditChild(child)),
+        onEditMode: (bool) => dispatch(actions.setEditMode(bool))
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChildForm);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ChildForm));

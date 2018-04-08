@@ -89,16 +89,15 @@ class ChoreForm extends Component {
             // axios call
             axios.post('/addToChoreList', data)
                 .then(response => {
-                    console.log('response', response);
-                    console.log('got here', data.choreText)
+                    // clear form input
+                    document.getElementById('choreText').value = '';                    
                     // redux action to add choreText to chorelist in userRedux
                     this.props.onAddToChoreList(this.state.controls.choreText.value);
-                    console.log('choretext', data.choreText);
+                    
                 })
                 .catch(err => {
                     // reqErrors
 
-                    console.log('nope im here', err)
                 })
         }
 
@@ -127,6 +126,7 @@ class ChoreForm extends Component {
                                     type="text"
                                     className="form-control"
                                     name="choreText"
+                                    id="choreText"
                                     onChange={this.inputChanged}
                                     
                                 />

@@ -1,4 +1,8 @@
 import React, { Component} from 'react';
+import axios from 'axios';
+import { connect } from 'react-redux';
+import * as actions from '../../../../store/actions/index';
+import InfoMessage from '../../../UI/Message/infoMessage';
 
 class ChoreForm extends Component {
     state = {
@@ -42,14 +46,81 @@ class ChoreForm extends Component {
                 return errorMessage;
         }
     }
+
+    errorDisplay =  () => {
+        let errors= [];
+        let errorDisplay = null;
+
+        if(!this.state.isValid) {
+            for (let ctr in this.state.controls) {
+                if (this.state.controls[ctr].validation.length > 0) {
+                    errors.push(...this.state.controls[ctr].validation);
+                }
+            }
+            errorDisplay = (
+                <ul style={{listStyle: 'none'}}>
+                    {errors.map( (err, index) => (
+                        <li key={index}>
+                            <InfoMessage messageType="fail">{err}</InfoMessage>
+                        </li>
+                    ))}
+                </ul>
+            )
+        }
+        return errorDisplay;
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        let tempIsValid = true;
+        const data = {};
+        data['adultId'] = this.props.userRedux.user._id;
+        for (let ctr in this.state.controls) {
+            data[ctr] = this.state.controls[ctr].value;
+            // validation check
+            if (this.state.controls[ctr].validation.length > 0) {
+                tempIsValid = false;
+            }
+        }
+        // we set state based on tempIsValid
+        this.setState({isValid: tempIsValid});
+
+        if (tempIsValid) {
+            // axios call
+            axios.post('/addToChoreList', data)
+                .then(response => {
+                    console.log('response', response);
+                    console.log('got here', data.choreText)
+                    // redux action to add choreText to chorelist in userRedux
+                    this.props.onAddToChoreList(this.state.controls.choreText.value);
+                    console.log('choretext', data.choreText);
+                })
+                .catch(err => {
+                    // reqErrors
+
+                    console.log('nope im here', err)
+                })
+        }
+
+    }
     
     render() {
+        let errorDisplay = this.errorDisplay();
+        let reqErrorsDisplay = null;
+        if (this.state.reqErrors) {
+            reqErrorsDisplay = (
+                <InfoMessage messageType='fail'>{this.state.reqErrors}</InfoMessage>
+            )
+        } 
+
         return (
             <div className="container">
                 <div className="row">
                     <div className="col-md-6 offset-md-3 col-sm-8 offset-sm-2">
-                        <h1>choreForm</h1>
-                        <form>
+                        <h1>ChoreForm</h1>
+                        {errorDisplay}
+                        {reqErrorsDisplay}
+                        <form onSubmit={this.handleSubmit}>
                             <div className="form-group">
                                 <label>Individiual Chore</label>
                                 <input 
@@ -71,4 +142,16 @@ class ChoreForm extends Component {
 
 }
 
-export default ChoreForm;
+const mapStateToProps = (state) => {
+    return {
+        userRedux: state.userRedux
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onAddToChoreList: (choreText) => dispatch(actions.addToChoreList(choreText)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChoreForm);

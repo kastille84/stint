@@ -73,3 +73,11 @@ export const setDeleteChild = (id) => {
         id: id
     }
 }
+
+// CHORES
+export const addToChoreList = (choreText) => {
+    return {
+        type: actionTypes.ADD_TO_CHORELIST,
+        choreText: choreText
+    }
+}

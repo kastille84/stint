@@ -12,9 +12,8 @@ export const SET_UPDATE_CHILD = 'SET_UPDATE_CHILD';
 export const SET_DELETE_CHILD = 'SET_DELETE_CHILD';
 export const SET_EDIT_MODE = 'SET_EDIT_MODE';
 
-export const REMOVE_USER = 'REMOVE_USER';
-export const ADD_CHILD = 'ADD_CHILD';
-export const SET_CHORELIST = 'SET_CHORELIST';
+//chore
 export const ADD_TO_CHORELIST = 'ADD_TO_CHORELIST';
+
 
 

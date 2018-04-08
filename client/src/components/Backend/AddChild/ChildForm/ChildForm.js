@@ -170,10 +170,7 @@ class ChildForm extends Component {
                         this.setState({reqErrors: "Could Not Add Child. Check Your Inputs."})
                     })
             }
-        }
-        
-
-
+        } 
     }
 
     render() {

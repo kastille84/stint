@@ -16,7 +16,9 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     let user = '';
     let children = '';
-    let childrenArr = '';
+    let childrenArr = [];
+    let choreArr = [];
+
     switch(action.type) {
         case actionTypes.SET_USER_REGISTERED_TRUE:
             return {
@@ -90,7 +92,16 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 user: user
             }
-
+        // CHORES
+        case actionTypes.ADD_TO_CHORELIST:
+            choreArr = [...state.user.choreList];
+            choreArr.push(action.choreText);
+            user = {...state.user};
+            user['choreList'] = choreArr;
+            return {
+                ...state,
+                user: user
+            }
         default:
             return state;
     }

@@ -331,26 +331,65 @@ router.delete('/delete/:id', (req, res) => {
                     })
                 })
                 .catch(err => {
-                    res.status(500).json({message: 'fail 1'});
+                    res.status(500).json({message: 'could no delete'});
                 })
         })
         .catch(err => {
-            res.status(500).json({message: 'fail 2'});
+            res.status(500).json({message: 'could not delete'});
         })
 });
 
-    // Get Family
-router.get('/getfam/:id', (req, res) => {
-    const id = req.params._id;
-    Adult.findById(id)
-        .populate('children').exec()
-        .then(fam => {
-            return res.status(200).json({fam: fam});
+// Add To ChoreList
+router.post('/addToChoreList', [
+        check('choreText')
+            .exists()
+            .trim()
+            .escape()
+    ], (req, res) => {
+        // check validity of values
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+        // there are some validation errors
+        //return res.status(400).json({errors: 'Something went wrong, check your input'});
+        return res.status(400).json({errors: 'Something went wrong, check your input'});
+    }
+
+    Adult.findOne({_id: req.body.adultId}).exec()
+        .then(adult => {
+            // check if req.choreText already exists , send error response
+            let exists = adult.choreList.filter(chore => {
+                return chore === req.body.choreText
+            });
+            if (exists.length > 0) {
+                // cannot add chore because it already exists
+                return res.status(500).json({message: 'chore already exists'});
+            }
+            // add choreText to choreList array
+            adult.choreList.push(req.body.choreText);
+            adult.save( (err, updatedAdult) => {
+                if (err) {
+                    return res.status(500).json({message: 'cannot save chore'});
+                }
+                return res.status(200).json({message: 'success'})
+            });
         })
         .catch(err => {
-            return res.status(500).json({err: err});
+            return res.status(500).json({message: 'cannot save chore'});
         })
-});
+})
+
+    // Get Family
+// router.get('/getfam/:id', (req, res) => {
+//     const id = req.params._id;
+//     Adult.findById(id)
+//         .populate('children').exec()
+//         .then(fam => {
+//             return res.status(200).json({fam: fam});
+//         })
+//         .catch(err => {
+//             return res.status(500).json({err: err});
+//         })
+// });
 
 //router.get('/users', (req, res) => {
     // User.find()

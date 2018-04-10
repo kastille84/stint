@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+//const Promise = require('bluebird');
 const mongoose = require('mongoose');
 const ObjectID = require('mongodb').ObjectID;
 const {check, validationResult} = require('express-validator/check');
@@ -10,6 +11,7 @@ const nodemailer = require('nodemailer');
 
 const Adult = require('../models/adult');
 const Child = require('../models/child');
+const Schedule = require('../models/schedule');
 const {tks, email, pemail, urlEnv} = require('../config/config');
 
 mongoose.connect('mongodb://localhost:27017/stint');
@@ -220,36 +222,13 @@ router.post('/addChild', [
     }
     
     let childId = null;
-    //empty ChoreSchedule Object
-    const scheduleObj = {
-        mon: {
-            chores: [],// will hold list of {choreName: '', completed: false}
-        },
-        tue: {
-            chores: [],
-        },
-        wed: {
-            chores: [],
-        },
-        thu: {
-            chores: [],
-        },
-        fri: {
-            chores: [],
-        },
-        sat: {
-            chores: [],
-        },
-        sun: {
-            chores: [],
-        },
-    };
+   
     // Child Schema, add child record
     Child.create({
         adultId: req.body.adultId,
         name: req.body.name,
         pin: req.body.pin,
-        schedule: scheduleObj
+        //schedule: scheduleObj
     }, (err, child) =>{
         if (err){
             // could not add child to db
@@ -266,8 +245,18 @@ router.post('/addChild', [
             let children = adult.children;
             children.push(child._id);
             adult.update({children: children}).exec()
-                .then(result => {
-                    res.status(200).json({child: child});
+                .then(result => {          
+                    
+                    // Create a Schedule for child
+                    Schedule.create({
+                        adultId: req.body.adultId,
+                        childId: child._id
+                    }, (err, schedule) => {
+                        if (err) {
+                            res.status(500).json({message: 'No Adult'});  
+                        }
+                        res.status(200).json({child: child, schedule: schedule});
+                    });
                 }) 
                 .catch(err =>{
                     res.status(500).json({message: "Could not update adult"})
@@ -327,7 +316,11 @@ router.delete('/delete/:id', (req, res) => {
                             res.status(500).json({message: 'could not save'});
                         }
                         // CHILD DELETED FROM CHILD & ADULT COLLECTION
-                        res.status(200).json({message: 'success'});
+                        // DELETE FROM SCHEDULE
+                        Schedule.findOneAndRemove({childId: child_id}).exec()
+                            .then( () => {
+                                res.status(200).json({message: 'success'});
+                            })
                     })
                 })
                 .catch(err => {
@@ -376,7 +369,151 @@ router.post('/addToChoreList', [
         .catch(err => {
             return res.status(500).json({message: 'cannot save chore'});
         })
-})
+});
+
+router.post('/editChoreList', [
+        check('choreText')
+            .exists()
+            .trim()
+            .escape()
+    ], (req, res) => {
+    // check validity of values
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+        // there are some validation errors
+        return res.status(400).json({errors: 'Something went wrong, check your input'});
+    }
+
+    Adult.findOne({_id: req.body.adultId})
+        .populate('children').exec()
+        .then(adult => {            
+            //#TODO - edit Adult chorelist
+            let upChoreListArr = adult.choreList.map(chore => {
+                    if (chore === req.body.oldChoreText) {
+                        // return the new choreText
+                        return req.body.choreText
+                    }
+                    return chore;
+            });
+            adult.choreList = upChoreListArr;
+            adult.save( (err, upAdult) => {
+                if (err) {
+                    return res.status(500).json({message: 'cant save adult'});
+                }
+
+                // edit the schedule
+                let promiseArr = [];
+                Schedule.find({adultId: adult._id}).exec()
+                    .then(schedules=> {
+                        for (schedule of schedules) {
+                            // M O N
+                            if (schedule.mon) {
+                                let monKeys = Object.keys(schedule.mon);
+                                if (monKeys.includes(req.body.oldChoreText)) {
+                                    //create new chores object
+                                    let newChores = {...schedule.mon};
+                                    let completed = schedule.mon[req.body.oldChoreText];
+                                    delete newChores[req.body.oldChoreText];
+                                    newChores[req.body.choreText] = completed;
+                                    schedule.mon = newChores;
+                                }
+                            }
+                            // T U E
+                            if (schedule.tue) {
+                                let tueKeys = Object.keys(schedule.tue);
+                                if (tueKeys.includes(req.body.oldChoreText)) {
+                                    //create new chores object
+                                    let newChores = {...schedule.tue};
+                                    let completed = schedule.tue[req.body.oldChoreText];
+                                    delete newChores[req.body.oldChoreText];
+                                    newChores[req.body.choreText] = completed;
+                                    schedule.tue = newChores;
+                                }
+                            }
+                            
+                            promiseArr.push(schedule.save());
+                        } // end of for..of
+                        //Promise all
+                        Promise.all(promiseArr)
+                            .then(result => {
+                                return res.status(200).json({result: result});
+                            })
+                            .catch(err => {
+                                return res.status(500).json({err: err});
+                            });
+                    });// end schedule
+
+            });// end adult                    
+        })
+        .catch(err => {
+            // could not find adult
+            return res.status(500).json({message: err});
+        });
+
+        
+
+        // children
+
+        // let childPromises = [];
+        // let promises = null;
+        //     Child.find({adultId: req.body.adultId}).exec()
+        //         .then(children => {
+        //             let promise = null;
+        //             for (child of children) {                        
+        //                 //M O N
+        //                 let monObjKeysArr = Object.keys(child.schedule.mon.chores);
+        //                 if (monObjKeysArr.includes(req.body.oldChoreText)) { 
+        //                     // create a new chores object
+        //                     let newChores = {...child.schedule.mon.chores};
+        //                     let completed = child.schedule.mon.chores[req.body.oldChoreText];
+        //                     delete newChores[req.body.oldChoreText];
+        //                     // create the new record
+        //                     newChores[req.body.choreText] = completed
+        //                     child.schedule.mon.chores = newChores;
+        //                 }
+
+        //                 //T U E
+        //                 let tueObjKeysArr = Object.keys(child.schedule.tue.chores);
+        //                 if (tueObjKeysArr.includes(req.body.oldChoreText)) { 
+        //                     // create a new chores object
+        //                     let newChores = {...child.schedule.tue.chores};
+        //                     let completed = child.schedule.tue.chores[req.body.oldChoreText];
+        //                     delete newChores[req.body.oldChoreText];
+        //                     // create the new record
+        //                     newChores[req.body.choreText] = completed
+        //                     child.schedule.tue.chores = newChores;
+        //                 }
+        //                 // for ( i = 0; i < Object.keys(child.schedule.tue.chores).length; i++) {
+        //                 //     if (    (child.schedule.tue.chores[i].choreName) &&
+        //                 //         child.schedule.tue.chores[i].choreName === req.body.oldChoreText) {
+        //                 //         child.schedule.tue.chores[i].choreName = req.body.choreText;
+        //                 //     }
+        //                 // }
+        //                 promise= child.save();
+        //                 console.log('im here')
+        //                 childPromises.push(promise);
+        //                 console.log('here too');
+        //                 console.log('child', child.schedule);
+        //             }    
+   
+        //             promises = Promise.all(childPromises);
+        //             promises
+        //                 .then( (onfulfilled, onrejected) => {
+        //                     console.log('after all');
+        //                     console.log('fulfilled', onfulfilled)
+        //                     console.log('rejected', onrejected);
+        //                     return res.status(200).json({result: onfulfilled});
+        //                 })
+        //                 .catch(err => {
+        //                     return res.status(500).json({message: 'fail 1'});
+        //                 })
+        //         })
+        //         .catch(err => {
+        //             return res.status(500).json({message: 'fail 2', err: err});
+        //         })        
+        
+
+});
 
     // Get Family
 // router.get('/getfam/:id', (req, res) => {

@@ -14,6 +14,8 @@ export const SET_EDIT_MODE = 'SET_EDIT_MODE';
 
 //chore
 export const ADD_TO_CHORELIST = 'ADD_TO_CHORELIST';
+export const SET_EDIT_CHORE = 'SET_EDIT_CHORE';
+export const EDIT_THE_CHORELIST = 'EDIT_THE_CHORELIST';
 
 
 

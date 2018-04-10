@@ -10,7 +10,8 @@ const initialState = {
     isSignedIn: false, // temp true, return to false
     isVerified: false,
     editMode: null,
-    editChild: null
+    editChild: null,
+    editChore: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -18,6 +19,7 @@ const reducer = (state = initialState, action) => {
     let children = '';
     let childrenArr = [];
     let choreArr = [];
+    let index = null;
 
     switch(action.type) {
         case actionTypes.SET_USER_REGISTERED_TRUE:
@@ -96,6 +98,23 @@ const reducer = (state = initialState, action) => {
         case actionTypes.ADD_TO_CHORELIST:
             choreArr = [...state.user.choreList];
             choreArr.push(action.choreText);
+            user = {...state.user};
+            user['choreList'] = choreArr;
+            return {
+                ...state,
+                user: user
+            }
+        case actionTypes.SET_EDIT_CHORE:            
+            return {
+                ...state,
+                editChore: action.chore
+            }
+        case actionTypes.EDIT_THE_CHORELIST:
+            choreArr = [...state.user.choreList];
+            index = choreArr.indexOf(action.oldChoreText);
+            if (index) {
+                choreArr[index] = action.choreText
+            }
             user = {...state.user};
             user['choreList'] = choreArr;
             return {

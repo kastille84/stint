@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import InfoMessage from '../../../UI/Message/infoMessage';
+import * as actions from '../../../../store/actions/index';
 
 class ChoreList extends Component {
     state = {
@@ -9,14 +10,17 @@ class ChoreList extends Component {
     }
 
     setShowDelete = (e) => {
-        const chore = e.target.dataset.chore
+        const chore = e.target.dataset.chore;
         this.setState({showDelete: !this.state.showDelete});
         this.setState({selectedChore: chore});
     }
-    // unSetShowDelete = () => {
-    //     this.setState({showDelete: false});
-    //     this.setState({selectedChore: null});
-    // }
+    
+    setEditMode = (e) => {
+        const chore = e.target.dataset.chore;
+        this.props.onEditMode(true);
+        this.props.onEditChore(chore);
+    }
+
     deleteChore = () => {
         console.log('im trigeered');
     }
@@ -32,7 +36,9 @@ class ChoreList extends Component {
                     <li className="list-group-item" key={chore}>
                         <span>{chore}</span>
                         <span className="btn-group" >
-                            <button className="btn btn-info">edit</button>
+                            <button className="btn btn-info"
+                                    onClick={this.setEditMode}
+                                    data-chore={chore}>edit</button>
                             <button className="btn btn-warning" 
                                     onClick={this.setShowDelete}
                                     data-chore={chore}>X</button>
@@ -74,4 +80,11 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(ChoreList);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onEditMode: (bool) => dispatch(actions.setEditMode(bool)),
+        onEditChore: (chore) => dispatch(actions.setEditChore(chore))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChoreList);

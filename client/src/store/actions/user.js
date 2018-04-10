@@ -81,3 +81,18 @@ export const addToChoreList = (choreText) => {
         choreText: choreText
     }
 }
+
+export const setEditChore = (chore) => {
+    return {
+        type: actionTypes.SET_EDIT_CHORE,
+        chore: chore
+    }
+}
+
+export const editTheChoreList = (oldChoreText, choreText) => {
+    return {
+        type: actionTypes.EDIT_THE_CHORELIST,
+        oldChoreText: oldChoreText,
+        choreText: choreText
+    }
+}

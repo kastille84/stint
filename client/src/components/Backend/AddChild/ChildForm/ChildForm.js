@@ -149,11 +149,10 @@ class ChildForm extends Component {
                 axios.post('/editChild', data)
                     .then(response => {
                         // update child in redux
-                        console.log(response.data.child);
                         this.props.onUpdateChild(response.data.child);
                     })
-                    .catch({
-
+                    .catch( (err) => {
+                        this.setState({reqErrors: "Could Not Edit Child. Check Your Inputs."})
                     });
 
             } else {

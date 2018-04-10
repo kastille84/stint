@@ -13,10 +13,6 @@ const childSchema = new Schema({
     pin: {
         type: String,
         required: true
-    },
-    schedule: {
-        type: Object,
-        required: true
     }
 })
 

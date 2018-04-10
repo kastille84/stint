@@ -72,9 +72,20 @@ class ChoreForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
+        // Edit Mode
+        if (this.props.userRedux.editMode ) {
+            let upControls = {...this.state.controls};
+
+            if (this.state.controls['choreText'].value==='') {
+                upControls['choreText'].value = this.props.userRedux.editChore;
+            }
+            this.setState({controls: upControls});
+        }
+
         let tempIsValid = true;
         const data = {};
         data['adultId'] = this.props.userRedux.user._id;
+        
         for (let ctr in this.state.controls) {
             data[ctr] = this.state.controls[ctr].value;
             // validation check
@@ -86,19 +97,45 @@ class ChoreForm extends Component {
         this.setState({isValid: tempIsValid});
 
         if (tempIsValid) {
-            // axios call
-            axios.post('/addToChoreList', data)
-                .then(response => {
-                    // clear form input
-                    document.getElementById('choreText').value = '';                    
-                    // redux action to add choreText to chorelist in userRedux
-                    this.props.onAddToChoreList(this.state.controls.choreText.value);
-                    
-                })
-                .catch(err => {
-                    // reqErrors
+            // if edit mode, hit ediChoreList api
+            if (this.props.userRedux.editMode) {
+                data['oldChoreText'] = this.props.userRedux.editChore;
+                // we have the data so 
+                //we need to clear the forms input
+                let upControls = {...this.state.controls};
+                    upControls['choreText'].value = '';              
+                this.setState({controls: upControls});
+                document.getElementById('choreText').value = '';
+                // or chage edit mode to false & editchore to null
+                this.props.onEditChore(null);
+                this.props.onEditMode(false);
+                // axios call
+                axios.post('/editChoreList', data) 
+                    .then(response => {
+                        // set correct chore item in choreList
+                        this.props.onEditTheChoreList(data.oldChoreText, data.choreText);
+                        //#TODO??? reflect chore change on schedule redux
 
-                })
+                    })
+                    .catch(err => {
+                        this.setState({reqErrors: "Could Not Add Chore. Check Your Inputs."});   
+                    })
+            } else {
+            // in AddChore mode
+                // axios call
+                axios.post('/addToChoreList', data)
+                    .then(response => {
+                        // clear form input
+                        document.getElementById('choreText').value = '';                    
+                        // redux action to add choreText to chorelist in userRedux
+                        this.props.onAddToChoreList(this.state.controls.choreText.value);
+                        
+                    })
+                    .catch(err => {
+                        // reqErrors
+                        this.setState({reqErrors: "Could Not Add Chore. Check Your Inputs."});
+                    });
+            }
         }
 
     }
@@ -128,10 +165,10 @@ class ChoreForm extends Component {
                                     name="choreText"
                                     id="choreText"
                                     onChange={this.inputChanged}
-                                    
+                                    placeholder={this.props.userRedux.editMode? this.props.userRedux.editChore : ''}
                                 />
                             </div>
-                            <button className="btn btn-primary">Add Chore</button>
+                            <button className="btn btn-primary">{this.props.userRedux.editMode? 'Edit': 'Add'} Chore</button>
                         </form>
                     </div>
                 </div>
@@ -151,6 +188,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onAddToChoreList: (choreText) => dispatch(actions.addToChoreList(choreText)),
+        onEditChore: (chore) => dispatch(actions.setEditChore(chore)),
+        onEditMode: (bool) => dispatch(actions.setEditMode(bool)),
+        onEditTheChoreList: (oldChore, newChore) => dispatch(actions.editTheChoreList(oldChore, newChore))
     }
 }
 

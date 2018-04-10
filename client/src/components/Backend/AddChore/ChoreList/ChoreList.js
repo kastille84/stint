@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import InfoMessage from '../../../UI/Message/infoMessage';
 import * as actions from '../../../../store/actions/index';
+import axios from 'axios';
 
 class ChoreList extends Component {
     state = {
@@ -21,7 +22,14 @@ class ChoreList extends Component {
         this.props.onEditChore(chore);
     }
 
-    deleteChore = () => {
+    deleteChore = (e) => {
+        const chore = e.target.dataset.chore;
+        const adultId = e.target.dataset.id;
+        //axios call, go to api/deleteChore
+        axios.delete(`/deleteChore/${adultId}/${chore}`)
+            .then()
+            .catch();
+
         console.log('im trigeered');
     }
 

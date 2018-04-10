@@ -387,7 +387,7 @@ router.post('/editChoreList', [
     Adult.findOne({_id: req.body.adultId})
         .populate('children').exec()
         .then(adult => {            
-            //#TODO - edit Adult chorelist
+            //edit Adult chorelist
             let upChoreListArr = adult.choreList.map(chore => {
                     if (chore === req.body.oldChoreText) {
                         // return the new choreText
@@ -430,6 +430,66 @@ router.post('/editChoreList', [
                                     schedule.tue = newChores;
                                 }
                             }
+                            // W E D
+                            if (schedule.wed) {
+                                let wedKeys = Object.keys(schedule.wed);
+                                if (wedKeys.includes(req.body.oldChoreText)) {
+                                    //create new chores object
+                                    let newChores = {...schedule.wed};
+                                    let completed = schedule.wed[req.body.oldChoreText];
+                                    delete newChores[req.body.oldChoreText];
+                                    newChores[req.body.choreText] = completed;
+                                    schedule.wed = newChores;
+                                }
+                            }
+                            // T H U
+                            if (schedule.thu) {
+                                let thuKeys = Object.keys(schedule.thu);
+                                if (thuKeys.includes(req.body.oldChoreText)) {
+                                    //create new chores object
+                                    let newChores = {...schedule.thu};
+                                    let completed = schedule.thu[req.body.oldChoreText];
+                                    delete newChores[req.body.oldChoreText];
+                                    newChores[req.body.choreText] = completed;
+                                    schedule.thu = newChores;
+                                }
+                            }
+                            // F R I
+                            if (schedule.fri) {
+                                let friKeys = Object.keys(schedule.fri);
+                                if (friKeys.includes(req.body.oldChoreText)) {
+                                    //create new chores object
+                                    let newChores = {...schedule.fri};
+                                    let completed = schedule.fri[req.body.oldChoreText];
+                                    delete newChores[req.body.oldChoreText];
+                                    newChores[req.body.choreText] = completed;
+                                    schedule.fri = newChores;
+                                }
+                            }
+                            // S A T
+                            if (schedule.sat) {
+                                let satKeys = Object.keys(schedule.sat);
+                                if (satKeys.includes(req.body.oldChoreText)) {
+                                    //create new chores object
+                                    let newChores = {...schedule.sat};
+                                    let completed = schedule.sat[req.body.oldChoreText];
+                                    delete newChores[req.body.oldChoreText];
+                                    newChores[req.body.choreText] = completed;
+                                    schedule.sat = newChores;
+                                }
+                            }
+                            // S U N
+                            if (schedule.sun) {
+                                let sunKeys = Object.keys(schedule.sun);
+                                if (sunKeys.includes(req.body.oldChoreText)) {
+                                    //create new chores object
+                                    let newChores = {...schedule.sun};
+                                    let completed = schedule.sun[req.body.oldChoreText];
+                                    delete newChores[req.body.oldChoreText];
+                                    newChores[req.body.choreText] = completed;
+                                    schedule.sun = newChores;
+                                }
+                            }
                             
                             promiseArr.push(schedule.save());
                         } // end of for..of
@@ -449,69 +509,39 @@ router.post('/editChoreList', [
             // could not find adult
             return res.status(500).json({message: err});
         });
+});
 
-        
+// delete chore
+router.delete('/deleteChore/:id/:chore', (req, res) => {
+    const adultId = req.params.id;
+    const choreText = req.params.chore;
+    console.log('choreText', choreText);
+    Adult.findById(adultId).exec()
+    .then(adult => {
+        // delete chore from adult
+        let upChoreListArr = adult.choreList.filter(chore => {
+            if (chore === choreText) {
+                // don't include in upChoreListArr
+                return false
+            }
+            return true;
+        });
+        adult.choreList = upChoreListArr;
+        console.log('Adultchorelist', adult.choreList);
+        res.status(200);
+        adult.save( (err, upAdult) => {
+            if (err) {
+                return res.status(500).json({message: 'Could Not Delete Chore'})
+            }
+            // At this point, chore is deleted from adult
+            // now, delete from schedule
+            
+        });
 
-        // children
+        // delete chore from each Schedule with adultIt
 
-        // let childPromises = [];
-        // let promises = null;
-        //     Child.find({adultId: req.body.adultId}).exec()
-        //         .then(children => {
-        //             let promise = null;
-        //             for (child of children) {                        
-        //                 //M O N
-        //                 let monObjKeysArr = Object.keys(child.schedule.mon.chores);
-        //                 if (monObjKeysArr.includes(req.body.oldChoreText)) { 
-        //                     // create a new chores object
-        //                     let newChores = {...child.schedule.mon.chores};
-        //                     let completed = child.schedule.mon.chores[req.body.oldChoreText];
-        //                     delete newChores[req.body.oldChoreText];
-        //                     // create the new record
-        //                     newChores[req.body.choreText] = completed
-        //                     child.schedule.mon.chores = newChores;
-        //                 }
-
-        //                 //T U E
-        //                 let tueObjKeysArr = Object.keys(child.schedule.tue.chores);
-        //                 if (tueObjKeysArr.includes(req.body.oldChoreText)) { 
-        //                     // create a new chores object
-        //                     let newChores = {...child.schedule.tue.chores};
-        //                     let completed = child.schedule.tue.chores[req.body.oldChoreText];
-        //                     delete newChores[req.body.oldChoreText];
-        //                     // create the new record
-        //                     newChores[req.body.choreText] = completed
-        //                     child.schedule.tue.chores = newChores;
-        //                 }
-        //                 // for ( i = 0; i < Object.keys(child.schedule.tue.chores).length; i++) {
-        //                 //     if (    (child.schedule.tue.chores[i].choreName) &&
-        //                 //         child.schedule.tue.chores[i].choreName === req.body.oldChoreText) {
-        //                 //         child.schedule.tue.chores[i].choreName = req.body.choreText;
-        //                 //     }
-        //                 // }
-        //                 promise= child.save();
-        //                 console.log('im here')
-        //                 childPromises.push(promise);
-        //                 console.log('here too');
-        //                 console.log('child', child.schedule);
-        //             }    
-   
-        //             promises = Promise.all(childPromises);
-        //             promises
-        //                 .then( (onfulfilled, onrejected) => {
-        //                     console.log('after all');
-        //                     console.log('fulfilled', onfulfilled)
-        //                     console.log('rejected', onrejected);
-        //                     return res.status(200).json({result: onfulfilled});
-        //                 })
-        //                 .catch(err => {
-        //                     return res.status(500).json({message: 'fail 1'});
-        //                 })
-        //         })
-        //         .catch(err => {
-        //             return res.status(500).json({message: 'fail 2', err: err});
-        //         })        
-        
+    })
+    .catch();
 
 });
 

@@ -96,3 +96,10 @@ export const editTheChoreList = (oldChoreText, choreText) => {
         choreText: choreText
     }
 }
+
+export const setDeleteChore = (chore) => {
+    return {
+        type: actionTypes.SET_DELETE_CHORE,
+        chore: chore
+    }
+}

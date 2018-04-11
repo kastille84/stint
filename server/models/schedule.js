@@ -12,31 +12,31 @@ const scheduleSchema = new Schema({
     },
     mon: {
         type: Object,
-        default: null
+        default: {}
     },
     tue: {
         type: Object,
-        default: null
+        default: {}
     },
     wed: {
         type: Object,
-        default: null
+        default: {}
     },
     thu: {
         type: Object,
-        default: null
+        default: {}
     },
     fri: {
         type: Object,
-        default: null
+        default: {}
     },
     sat: {
         type: Object,
-        default: null
+        default: {}
     },
     sun: {
         type: Object,
-        default: null
+        default: {}
     },
 
 });

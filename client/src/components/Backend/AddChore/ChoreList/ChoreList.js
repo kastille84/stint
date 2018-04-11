@@ -7,7 +7,8 @@ import axios from 'axios';
 class ChoreList extends Component {
     state = {
         showDelete: false,
-        selectedChore: null
+        selectedChore: null,
+        reqErrors: null
     }
 
     setShowDelete = (e) => {
@@ -27,10 +28,14 @@ class ChoreList extends Component {
         const adultId = e.target.dataset.id;
         //axios call, go to api/deleteChore
         axios.delete(`/deleteChore/${adultId}/${chore}`)
-            .then()
-            .catch();
-
-        console.log('im trigeered');
+            .then(response => {
+                // delete the chore on user from userRedux
+                this.props.onDeleteChore(chore);
+            })
+            .catch(err => {
+                // set reqErrors
+                this.setState({reqErrors: 'Could Not Delete The Chore'});
+            });
     }
 
 
@@ -74,6 +79,7 @@ class ChoreList extends Component {
             <div>
                 <h1>choreList</h1>
                 <ul>
+                    {this.state.reqErrors? <InfoMessage messageType="fail">{this.state.reqErrors}</InfoMessage>: null}
                     {this.getChoreList()}
                 </ul>
             </div>
@@ -91,7 +97,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onEditMode: (bool) => dispatch(actions.setEditMode(bool)),
-        onEditChore: (chore) => dispatch(actions.setEditChore(chore))
+        onEditChore: (chore) => dispatch(actions.setEditChore(chore)),
+        onDeleteChore: (chore) => dispatch(actions.setDeleteChore(chore))
     }
 }
 

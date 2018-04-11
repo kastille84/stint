@@ -12,5 +12,6 @@ export {
     setDeleteChild,
     addToChoreList,
     setEditChore,
-    editTheChoreList
+    editTheChoreList,
+    setDeleteChore
 } from './user';

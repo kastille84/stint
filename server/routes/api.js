@@ -535,13 +535,93 @@ router.delete('/deleteChore/:id/:chore', (req, res) => {
             }
             // At this point, chore is deleted from adult
             // now, delete from schedule
-            
+            Schedule.find({adultId: adultId}).exec()
+                .then(schedules => {
+                    console.log('got into schedules');
+                    console.log('schedules', schedules);
+                    const promiseArr = [];
+                    for (schedule of schedules) {
+                        let mon = {};
+                        let tue = {};
+                        let wed = {};
+                        let thu = {};
+                        let fri = {};
+                        let sat = {};
+                        let sun = {};
+                        // M O N 
+                        if ( (schedule.mon) && Object.keys(schedule.mon).includes(choreText)) {
+                                mon = {...schedule.mon};
+                                delete mon[choreText];
+                            // delete it from schedule
+                            //schedule.mon = mon;
+                        }
+                        // T U E
+                        if ( (schedule.tue) && Object.keys(schedule.tue).includes(choreText)) {
+                            // // delete it from schedule
+                            // delete schedule.tue[choreText];
+                                tue = {...schedule.tue};
+                                delete tue[choreText];
+                        }
+                        // W E D
+                        if ( (schedule.wed) && Object.keys(schedule.wed).includes(choreText)) {
+                            // // delete it from schedule
+                            // delete schedule.wed[choreText];
+                                wed = {...schedule.wed};
+                                delete wed[choreText];
+                        }
+                        // T H U
+                        if ( (schedule.thu) && Object.keys(schedule.thu).includes(choreText)) {
+                            // // delete it from schedule
+                            // delete schedule.thu[choreText];
+                                thu = {...schedule.thu};
+                                delete thu[choreText];
+                        }
+                        // F R I
+                        if ( (schedule.fri) && Object.keys(schedule.fri).includes(choreText)) {
+                            // // delete it from schedule
+                            // delete schedule.fri[choreText];
+                                fri = {...schedule.fri};
+                                delete fri[choreText];
+                        }
+                        // S A T
+                        if ( (schedule.sat) && Object.keys(schedule.sat).includes(choreText)) {
+                            // // delete it from schedule
+                            // delete schedule.sat[choreText];
+                                sat = {...schedule.sat};
+                                delete sat[choreText];
+                        }
+                        // S U N
+                        if ( (schedule.sun) && Object.keys(schedule.sun).includes(choreText)) {
+                            // // delete it from schedule
+                            // delete schedule.sun[choreText];
+                                sun = {...schedule.sun};
+                                delete sun[choreText];
+                        }
+
+                        promiseArr.push(schedule.update({mon: mon, tue: tue, wed: wed, thu: thu, fri: fri, sat: sat, sun: sun}) );
+                        
+                    }
+
+                    Promise.all(promiseArr)
+                        .then(result => {
+                            return res.status(200).json({message: 'Saved Schedule'});
+                        })
+                        .catch(err => {
+                            // Promise all. Errors
+                            return res.status(500).json({message: 'Promise error'});
+                        })
+                })
+                .catch(err => {
+                    // getting schedule collection Errors
+                    return res.status(500).json({message: 'Schedule collection error', err: err});
+                })
         });
 
-        // delete chore from each Schedule with adultIt
-
     })
-    .catch();
+    .catch(err => {
+        // finding adult error
+        return res.status(500).json({message: 'Adult collection error'});
+    });
 
 });
 

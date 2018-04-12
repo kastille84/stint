@@ -10,9 +10,11 @@ import { createStore, applyMiddleware, compose, combineReducers} from 'redux';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import userReducer from './store/reducers/user';
+import scheduleRedux from './store/reducers/schedule';
 
 const rootReducer = combineReducers({
-    userRedux: userReducer 
+    userRedux: userReducer ,
+    scheduleRedux: scheduleRedux
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

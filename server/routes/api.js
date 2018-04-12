@@ -625,18 +625,17 @@ router.delete('/deleteChore/:id/:chore', (req, res) => {
 
 });
 
-    // Get Family
-// router.get('/getfam/:id', (req, res) => {
-//     const id = req.params._id;
-//     Adult.findById(id)
-//         .populate('children').exec()
-//         .then(fam => {
-//             return res.status(200).json({fam: fam});
-//         })
-//         .catch(err => {
-//             return res.status(500).json({err: err});
-//         })
-// });
+    // Get All Schedules
+router.get('/getAllSchedules/:id', (req, res) => {
+    const id = req.params.id;
+    Schedule.find({adultId: id}).exec()
+        .then(schedules => {
+            return res.status(200).json({schedules: schedules});
+        })
+        .catch(err => {
+            return res.status(500).json({err: err});
+        });
+});
 
 //router.get('/users', (req, res) => {
     // User.find()

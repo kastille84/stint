@@ -18,5 +18,8 @@ export const SET_EDIT_CHORE = 'SET_EDIT_CHORE';
 export const EDIT_THE_CHORELIST = 'EDIT_THE_CHORELIST';
 export const SET_DELETE_CHORE = 'SET_DELETE_CHORE';
 
+// schedule
+export const SET_SCHEDULES = 'SET_SCHEDULES';
+export const SET_SELECTED_SCHEDULE = 'SET_SELECTED_SCHEDULE';
 
 

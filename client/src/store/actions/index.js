@@ -15,3 +15,8 @@ export {
     editTheChoreList,
     setDeleteChore
 } from './user';
+
+export {
+    setSchedules,
+    setSelectedSchedule
+} from './schedule';

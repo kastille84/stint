@@ -57,10 +57,8 @@ const reducer = (state = initialState, action) => {
                     delete cSelectedSchedule[action.day];
                 }
             }
-            return {
-                ...state,
-                selectedSchedule: cSelectedSchedule
-            }
+            cState.selectedSchedule = cSelectedSchedule;
+            return cState;
             
         default:
             return state;

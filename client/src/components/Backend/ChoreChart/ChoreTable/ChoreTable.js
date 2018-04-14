@@ -9,6 +9,14 @@ class ChoreTable extends Component {
         this.colorTheChart();
     }
 
+    // shouldComponentUpdate(nextProps) {
+    //     if (this.props.scheduleRedux.selectedSchedule === nextProps.scheduleRedux.selectedSchedule) {
+    //         console.log('getting updated');
+    //         return true;
+    //     }
+    //     return true;
+    // }
+
     colorTheChart = () => {
         const tds = document.getElementsByClassName('choreTd');
         [].forEach.call(tds, (td) => {
@@ -33,7 +41,7 @@ class ChoreTable extends Component {
         } else if (schedule[day][chore] !== undefined && schedule[day][chore] === false) {
             return 'incomplete'
         }
-        //return 'inactive';
+        return 'inactive';
     }
 
     editToggle = () => {
@@ -53,6 +61,7 @@ class ChoreTable extends Component {
             const chore = e.target.dataset.chore;
             const oldStatus = e.target.dataset.status;
             let newStatus = '';
+            console.log('status', oldStatus);
             if (oldStatus === 'inactive') {
                 // set to incomplete
                 newStatus = 'incomplete';
@@ -63,10 +72,13 @@ class ChoreTable extends Component {
                 // set to inactive
                 newStatus = 'inactive';
             }
+            console.log('newStatus', newStatus)
             //change status in redux
             this.props.onSetChoreStatus(chore, day, newStatus);
             // change status in component
             e.target.dataset.status = newStatus;
+            // change the color
+            this.colorTheChart();
             return;
         }
     }

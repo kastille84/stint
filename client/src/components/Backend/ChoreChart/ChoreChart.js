@@ -56,7 +56,7 @@ class ChoreChart extends Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-md-8 md-offset-2">
+                    <div className="col-md-8 offset-md-2">
                         <div>
                             {this.getChildList()}
                         </div>

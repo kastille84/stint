@@ -18,5 +18,7 @@ export {
 
 export {
     setSchedules,
-    setSelectedSchedule
+    setSelectedSchedule,
+    setEditToggle,
+    setChoreStatus
 } from './schedule';

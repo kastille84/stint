@@ -637,6 +637,18 @@ router.get('/getAllSchedules/:id', (req, res) => {
         });
 });
 
+router.patch('/schedule', (req, res) =>{
+    console.log(req.body)
+    console.log(req.body._id);
+    Schedule.findOneAndUpdate(req.body._id, {...req.body} ).exec()
+        .then(schedule => {
+            return res.status(200).json(schedule);
+        })
+        .catch(err => {
+            return res.status(500);
+        })
+})
+
 //router.get('/users', (req, res) => {
     // User.find()
     //     .then(data => {

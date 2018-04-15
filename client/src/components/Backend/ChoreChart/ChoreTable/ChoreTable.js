@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import * as actions from '../../../../store/actions/index';
 
 class ChoreTable extends Component {
@@ -50,7 +51,17 @@ class ChoreTable extends Component {
     }
 
     saveChanges = () => {
+        // get the selectedSchedule
+        const schedule = this.props.scheduleRedux.selectedSchedule;
+        // axios call
+        axios.patch('/schedule', schedule)
+            .then(response => {
+                //success !! change editMode to false
+                this.props.onSetEditToggle();
+            })
+            .catch(err => {
 
+            });
     }
 
     changeStatus = (e) => {
@@ -116,9 +127,9 @@ class ChoreTable extends Component {
             </tbody>
         </table>
         {this.props.scheduleRedux.editMode === false? 
-            <button onClick={this.editToggle}>Edit</button>
+            <button onClick={this.editToggle} className="btn btn-info">Edit</button>
             : 
-            <button onClick={this.saveChanges}>Save Changes</button>}
+            <button onClick={this.saveChanges} className="btn btn-primary">Save Changes</button>}
         </div>            
         )
     }

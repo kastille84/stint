@@ -640,12 +640,12 @@ router.get('/getAllSchedules/:id', (req, res) => {
 router.patch('/schedule', (req, res) =>{
     console.log(req.body)
     console.log(req.body._id);
-    Schedule.findOneAndUpdate(req.body._id, {...req.body} ).exec()
+    Schedule.findOneAndUpdate({_id: req.body._id}, {...req.body} ).exec()
         .then(schedule => {
             return res.status(200).json(schedule);
         })
         .catch(err => {
-            return res.status(500);
+            return res.status(500).json({err: err});
         })
 })
 

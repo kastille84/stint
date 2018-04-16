@@ -65,7 +65,7 @@ class Navigation extends Component {
                                 <NavLink to="/dashboard/addChild" className="nav-link">Children</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink to="/dashboard/" className="nav-link">ChoreCharts</NavLink>
+                                <NavLink to="/dashboard/choreChart" className="nav-link">ChoreCharts</NavLink>
                             </li>
                             <li className="nav-item">
                                 <NavLink to="/dashboard/addChore" className="nav-link">ChoreList</NavLink>

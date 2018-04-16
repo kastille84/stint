@@ -5,7 +5,12 @@ import axios from 'axios';
 import * as actions from '../../../store/actions/index'; 
 
 class ChoreChart extends Component {
-    
+    state = {
+        name: null
+    }
+    componentDidUpdate() {
+        console.log('im updated');
+    }
     // fetch schedules
     componentDidMount() {
         //axios
@@ -14,7 +19,8 @@ class ChoreChart extends Component {
                 console.log(response.data);
                 // dispatch actions
                 this.props.onSetSchedules(response.data.schedules);              
-
+                // set selectedSchedule to Null
+                this.props.onSetSelectedSchedule(null);
             })
             .catch(err => {
                 // reqErrors
@@ -23,6 +29,9 @@ class ChoreChart extends Component {
     }
 
     setTable = (e) => {
+        // set child's name
+        const name= e.target.textContent;
+        this.setState({name: name});
         // get the child id
         const childId= e.target.dataset.id;
         //get the individual schedule
@@ -60,6 +69,7 @@ class ChoreChart extends Component {
                         <div>
                             {this.getChildList()}
                         </div>
+                        {this.state.name? <h4>{this.state.name}'s Chore Chart</h4>: null}
                         {this.props.scheduleRedux.selectedSchedule !== null? 
                             <ChoreTable /> : null }
                     </div>

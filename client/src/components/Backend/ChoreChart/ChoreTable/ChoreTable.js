@@ -9,13 +9,16 @@ class ChoreTable extends Component {
         // Initial
         this.colorTheChart();
     }
+    componentDidUpdate() {
+        this.colorTheChart();
+    }
 
     // shouldComponentUpdate(nextProps) {
-    //     if (this.props.scheduleRedux.selectedSchedule === nextProps.scheduleRedux.selectedSchedule) {
+    //     if (this.props.scheduleRedux.selectedSchedule !== nextProps.scheduleRedux.selectedSchedule) {
     //         console.log('getting updated');
     //         return true;
     //     }
-    //     return true;
+    //     return false;
     // }
 
     colorTheChart = () => {
@@ -60,7 +63,7 @@ class ChoreTable extends Component {
                 this.props.onSetEditToggle();
             })
             .catch(err => {
-
+                console.log('err', err);
             });
     }
 
@@ -116,6 +119,7 @@ class ChoreTable extends Component {
     render() {
         return (
         <div>
+            
         <table className="table table-striped table-bordered table-hover">
             <thead>
                 <tr>

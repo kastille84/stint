@@ -1,8 +1,19 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import * as actions from '../../store/actions/index';
 
 class Navigation extends Component {  
+
+    signout = (e) => {
+        //e.preventDefault();
+        // remove token from localStorage
+        localStorage.removeItem('token');
+        // set isSignedIn to false
+        this.props.onSetSigninUser(false);
+        // redirect to signin page
+        //this.props.history.push('/signin');
+    }
 
     render() {
         // not logged in - Navigation
@@ -41,7 +52,7 @@ class Navigation extends Component {
                     <div className="collapse navbar-collapse" id="navbarsExampleDefault">
                     <ul className="navbar-nav mr-auto">                    
                         <li className="nav-item">
-                            <NavLink to="/signin" className="nav-link">Signout</NavLink>
+                            <NavLink className="nav-link" onClick={this.signout} to='/signin'>Signout</NavLink>
                         </li>
                     </ul>            
                     </div>
@@ -71,7 +82,7 @@ class Navigation extends Component {
                                 <NavLink to="/dashboard/addChore" className="nav-link">ChoreList</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink to="/dashboard/" className="nav-link">Signout</NavLink>
+                                <NavLink className="nav-link" onClick={this.signout} to="/signin">Signout</NavLink>
                             </li>
                         </ul>            
                     </div>
@@ -95,7 +106,7 @@ class Navigation extends Component {
                                 <NavLink to="/dashboard/" className="nav-link">ChoreChart</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink to="/dashboard/" className="nav-link">Signout</NavLink>
+                                <NavLink className="nav-link" onClick={this.signout} to="/signin">Signout</NavLink>
                             </li>
                         </ul>            
                     </div>
@@ -114,6 +125,11 @@ class Navigation extends Component {
 const mapStateToProps = (state) => {
     return {user: state.userRedux}
 }
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onSetSigninUser: (bool) => dispatch(actions.setSigninUser(bool))
+    }
+}
 
-export default connect(mapStateToProps)(Navigation);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navigation));
 

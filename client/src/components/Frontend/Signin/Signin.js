@@ -146,7 +146,7 @@ class Signin extends Component {
                     // store user in redux
                         //set isSignedIn to true, whichusermode stays false
                     this.props.onSetUser(response.data.user);
-                    this.props.onSetSignedIn();
+                    this.props.onSetSignedIn(true);
 
                     //** Temp for testing for whichuser */
                     // response.data.user.children[0]={name: 'johnny', age:"12"}
@@ -236,8 +236,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onSetUser: (user)=> {dispatch(actions.setUser(user))},
-        onSetSignedIn: () => {dispatch(actions.setSigninUser())},
-        onSetWhichUserMode: () =>{dispatch(actions.setWhichUserMode())},
+        onSetSignedIn: (bool) => {dispatch(actions.setSigninUser(bool))},
+        onSetWhichUserMode: (bool) => {dispatch(actions.setWhichUserMode(bool))},
         onSetUserType: (type) => {dispatch(actions.setUserType(type))}
     }
 }

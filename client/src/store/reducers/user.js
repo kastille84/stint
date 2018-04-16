@@ -52,7 +52,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.SET_SIGNIN_USER:
             return {
                 ...state,
-                isSignedIn: true
+                isSignedIn: action.bool
             }
         case actionTypes.SET_WHICH_USER_MODE:
             return {

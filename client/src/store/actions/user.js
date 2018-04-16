@@ -35,9 +35,10 @@ export const setUserChild = (child) => {
     }
 }
 
-export const setSigninUser = () => {
+export const setSigninUser = (bool) => {
     return {
-        type: actionTypes.SET_SIGNIN_USER
+        type: actionTypes.SET_SIGNIN_USER,
+        bool: bool
     }
 }
 

@@ -60,6 +60,20 @@ class ChoreChart extends Component {
         });
         return childrenDisplay;
     }
+    getIndividualChild =() => {
+        const childArr= this.props.userRedux.user.children.filter(child => {
+            return child._id === this.props.userRedux.userId;
+        })
+        const childDisplay = childArr.map(child => {
+            return <button 
+                        className="btn btn-primary"
+                        key={child.name}
+                        onClick={this.setTable}
+                        data-id={child._id}
+                    >{child.name}</button>
+        })
+        return childDisplay;
+    }
 
     render() {
         return (
@@ -67,7 +81,7 @@ class ChoreChart extends Component {
                 <div className="row">
                     <div className="col-md-8 offset-md-2">
                         <div>
-                            {this.getChildList()}
+                            {this.props.userRedux.userType === 'adult'? this.getChildList() : this.getIndividualChild()}
                         </div>
                         {this.state.name? <h4>{this.state.name}'s Chore Chart</h4>: null}
                         {this.props.scheduleRedux.selectedSchedule !== null? 

@@ -9,6 +9,7 @@ class Home extends Component {
         userType: null,
         userId: null
     }
+    
 
     componentWillMount() {
         this.setState({userType: this.props.userRedux.userType});

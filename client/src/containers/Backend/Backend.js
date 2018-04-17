@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import classes from './Backend.css';
 
 import Home from '../../components/Backend/Home/Home';
@@ -8,8 +8,8 @@ import AddChild from '../../components/Backend/AddChild/AddChild';
 import AddChore from '../../components/Backend/AddChore/AddChore';
 import ChoreChart from '../../components/Backend/ChoreChart/ChoreChart';
 
-export default class Backend extends Component {
-
+class Backend extends Component {
+    
     render() {
         return (
             <div className={classes.Backend}>               
@@ -24,3 +24,5 @@ export default class Backend extends Component {
         )
     }
 }
+
+export default withRouter(Backend);

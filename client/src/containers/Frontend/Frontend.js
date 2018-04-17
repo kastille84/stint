@@ -7,9 +7,7 @@ import Register from '../../components/Frontend/Register/Register';
 import Signin from '../../components/Frontend/Signin/Signin';
 
 export default class Frontend extends Component {
-    componentDidMount() {
-    }
-
+    
     render(){
         return (
             <div className={classes.Frontend}>            

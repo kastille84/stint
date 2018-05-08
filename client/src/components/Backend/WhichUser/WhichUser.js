@@ -138,9 +138,9 @@ class WhichUser extends Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-md-6 offset-md-3 col-sm-8 offset-sm-2">
+                    <div className="col-md-8 offset-md-2 col-sm-8 offset-sm-2">
                         <h2>Who is using Stint?</h2>
-                        <div className="card">
+                        <div className="card mb-4 p-4">
                             {this.props.userRedux.user.name}
                             <form onSubmit={this.handleSubmit}>
                                 {reqErrorsDisplay}
@@ -168,38 +168,40 @@ class WhichUser extends Component {
                             </form>                        
                         </div>
                         <hr/>
-                        {this.props.userRedux.user.children.map(child => {
-                            return (
-                                <div key={child._id} className="card">
-                                    {child.name}
-                                    <form onSubmit={this.handleSubmit}>
-                                        <div className="form-group">
-                                            {reqErrorsDisplay}
-                                            {errorDisplay}
-                                            <input 
-                                                className="form-control"
-                                                type="text"
-                                                maxLength="4"
-                                                placeholder="Enter Your Pin"
-                                                onChange={this.inputChanged}
-                                                name="pin"
-                                            />
-                                            <input 
-                                                type="hidden" 
-                                                value={child._id}
-                                                name="child"
-                                                
-                                            />
-                                        </div>
-                                        <button 
-                                            className="btn btn-primary"
-                                            data-type="child"
-                                            data-id={child._id}
-                                            onClick={this.btnFormClick}>Pin</button>
-                                    </form>                        
-                                </div>
-                            )
-                        })}
+                        <div className="">
+                            {this.props.userRedux.user.children.map(child => {
+                                return (
+                                    <div key={child._id} className="card mb-4 p-4">
+                                        {child.name}
+                                        <form onSubmit={this.handleSubmit}>
+                                            <div className="form-group">
+                                                {reqErrorsDisplay}
+                                                {errorDisplay}
+                                                <input 
+                                                    className="form-control"
+                                                    type="text"
+                                                    maxLength="4"
+                                                    placeholder="Enter Your Pin"
+                                                    onChange={this.inputChanged}
+                                                    name="pin"
+                                                />
+                                                <input 
+                                                    type="hidden" 
+                                                    value={child._id}
+                                                    name="child"
+                                                    
+                                                />
+                                            </div>
+                                            <button 
+                                                className="btn btn-primary"
+                                                data-type="child"
+                                                data-id={child._id}
+                                                onClick={this.btnFormClick}>Pin</button>
+                                        </form>                        
+                                    </div>
+                                )
+                            })}
+                        </div>
 
                     </div>
                 </div>

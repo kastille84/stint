@@ -1,3 +1,24 @@
 .Navigation {
-    
+    /* Ateneo blue */
+    background-color: #003A6C;
+}
+.Navigation a {
+    color: white;
+}
+.toggleIcon {
+    background-color: #007bff;
+    border-radius: 5px;
+}
+/* TABLET && LARGE SMARTPHONES */
+@media screen and (min-width: 481px ) and (max-width: 768px) {
+
+}
+/* LAPTOPS && TABLET in Landscape */
+@media screen and (min-width: 769px ) and (max-width: 1024px) {
+
+}
+/* LARGE DESKTOPS */
+@media screen and (min-width: 1025px ) and (max-width: 1600px) {
+ 
+
 }

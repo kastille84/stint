@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
+import classes from './Navigation.css';
 
 class Navigation extends Component {  
 
@@ -18,10 +19,10 @@ class Navigation extends Component {
     render() {
         // not logged in - Navigation
         let navigation = (
-            <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+            <nav className={classes.Navigation + " navbar navbar-expand-md fixed-top"}>
                 <NavLink to="/" className="navbar-brand">Stint</NavLink>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
+                <span className={"navbar-toggler-icon "+classes.toggleIcon}></span>
                 </button>    
                 <div className="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul className="navbar-nav mr-auto">

@@ -191,7 +191,7 @@ class Signin extends Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-md-6 offset-md-3 col-sm-8 offset-sm-2">
+                    <div className="col-md-8 offset-md-2 col-sm-8 offset-sm-2">
                         {message}
                         {reqErrorsDisplay}
                         {errorDisplay}

@@ -1,3 +1,12 @@
 .Home {
     
 }
+
+.Home h3 {
+    background: #285A84;
+    margin-bottom: 25px;
+}
+
+.Home h3 a {
+    color: white;
+}

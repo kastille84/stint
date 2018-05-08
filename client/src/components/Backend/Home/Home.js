@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import classes from './Home.css';
 
 import InfoMessage from '../../UI/Message/infoMessage';
 
@@ -33,15 +34,16 @@ class Home extends Component {
         if (this.state.userType === 'adult') {
             let noChildren = this.noChildren();
             userContent = (
-                <div>
-                    <h1 className="mb-2">Hey {this.props.userRedux.user.name}</h1>
+                <div className={classes.Home}>
+                    <h1 className="mb-5">Hey {this.props.userRedux.user.name}</h1>
+                    <p>What would you like to do?</p>
                     {noChildren}
-                    <h3 className="btn"><Link to="/dashboard/addchild">Add / Edit Child</Link></h3>
+                    <h3 className="btn btn-default btn-block"><Link to="/dashboard/addchild">Add / Edit Child</Link></h3>
                     {!noChildren ? (
                         <div>
-                            <h3 className="btn"><Link to="/dashboard/addChore">Add / Edit Chore List</Link></h3>
-                            <h3 className="btn"><Link to="/dashboard/choreChart">View Chore Chart</Link></h3>
-                            <h3 className="btn"><Link to="/dashboard/addChild">Messages</Link></h3>
+                            <h3 className="btn btn-default btn-block"><Link to="/dashboard/addChore">Add / Edit Chore List</Link></h3>
+                            <h3 className="btn btn-default btn-block"><Link to="/dashboard/choreChart">View Chore Chart</Link></h3>
+                            <h3 className="btn btn-default btn-block"><Link to="/dashboard/addChild">Messages</Link></h3>
                         </div>)
                     :null}
                 </div>
@@ -52,6 +54,7 @@ class Home extends Component {
             userContent = (
                 <div>
                     <h1>Hey {child.name}</h1>
+                    
                     <h3 className="btn"><Link to="/dashboard/choreChart">Chore Chart</Link></h3>
                     <h3 className="btn"><Link to="/dashboard/addChild">Messages</Link></h3>
 

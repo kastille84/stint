@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import * as actions from '../../../store/actions/index';
+import classes from './WhichUser.css';
 
 import InfoMessage from '../../UI/Message/infoMessage';
 
@@ -31,6 +32,8 @@ class WhichUser extends Component {
         updatedControls[inputName] = updatedInput;
         this.setState({controls: updatedControls});
         
+        // change whoId
+        this.setState({whoId: event.target.dataset.id});
     }
     checkValidity = (control, value) => {
         //let isValid = true;
@@ -140,11 +143,14 @@ class WhichUser extends Component {
                 <div className="row">
                     <div className="col-md-8 offset-md-2 col-sm-8 offset-sm-2">
                         <h2>Who is using Stint?</h2>
-                        <div className="card mb-4 p-4">
-                            {this.props.userRedux.user.name}
+                        <div className={classes.whichCardP+" card mb-4 mt-5 p-4"}>
+                            <p>{this.props.userRedux.user.name}</p>
+                            <br/>
                             <form onSubmit={this.handleSubmit}>
-                                {reqErrorsDisplay}
-                                {errorDisplay}
+                                {this.state.whoId === this.props.userRedux.user._id? 
+                                    reqErrorsDisplay : null}
+                                {this.state.whoId === this.props.userRedux.user._id? 
+                                    errorDisplay : null}
                                 <div className="form-group">
                                     <input 
                                         className="form-control"
@@ -152,6 +158,7 @@ class WhichUser extends Component {
                                         maxLength="4"
                                         placeholder="Enter Your Pin"
                                         onChange={this.inputChanged}
+                                        data-id={this.props.userRedux.user._id}
                                         name="pin"
                                     />
                                     <input 
@@ -171,18 +178,22 @@ class WhichUser extends Component {
                         <div className="">
                             {this.props.userRedux.user.children.map(child => {
                                 return (
-                                    <div key={child._id} className="card mb-4 p-4">
-                                        {child.name}
+                                    <div key={child._id} className={classes.whichCardC+" card mb-4 p-4"}>
+                                        <p>{child.name}</p>
+                                        <br/>
                                         <form onSubmit={this.handleSubmit}>
                                             <div className="form-group">
-                                                {reqErrorsDisplay}
-                                                {errorDisplay}
+                                                {this.state.whoId === child._id? 
+                                                    reqErrorsDisplay : null}
+                                                {this.state.whoId === child._id? 
+                                                    errorDisplay : null}
                                                 <input 
                                                     className="form-control"
                                                     type="text"
                                                     maxLength="4"
                                                     placeholder="Enter Your Pin"
                                                     onChange={this.inputChanged}
+                                                    data-id={child._id}
                                                     name="pin"
                                                 />
                                                 <input 

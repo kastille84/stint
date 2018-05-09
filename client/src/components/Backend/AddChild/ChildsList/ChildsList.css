@@ -1,0 +1,40 @@
+.ChildsList {
+ width: 100%;
+}
+
+.ChildsList ul {
+    margin:auto;
+    width: 100%;
+}
+
+.Delete {
+    display: block;
+}
+
+.Name {
+    font-size: 1.2rem;
+    margin-right: 10px;
+}
+
+/* TABLET && LARGE SMARTPHONES */
+@media screen and (min-width: 481px ) and (max-width: 768px) {
+    .ChildsList ul {
+        margin:auto;
+        width: 80%;
+    }
+}
+/* LAPTOPS && TABLET in Landscape */
+@media screen and (min-width: 769px ) and (max-width: 1024px) {
+    .ChildsList ul {
+        margin:auto;
+        width: 80%;
+    }
+}
+/* LARGE DESKTOPS */
+@media screen and (min-width: 1025px ) and (max-width: 1600px) {
+    .ChildsList ul {
+        margin:auto;
+        width: 70%;
+    }
+
+}

@@ -1,0 +1,33 @@
+.ChildForm {
+
+}
+
+.ChildForm form {
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 70%;
+    margin: auto;
+
+}
+
+/* TABLET && LARGE SMARTPHONES */
+@media screen and (min-width: 481px ) and (max-width: 768px) {
+    .ChildForm form {
+        padding: 20px;
+        width: 70%;    
+    }
+}
+/* LAPTOPS && TABLET in Landscape */
+@media screen and (min-width: 769px ) and (max-width: 1024px) {
+    .ChildForm form {
+        padding: 20px;
+        width: 70%;    
+    }
+}
+/* LARGE DESKTOPS */
+@media screen and (min-width: 1025px ) and (max-width: 1600px) {
+    .ChildForm form {
+        padding: 20px;
+        width: 70%;    
+    }
+}

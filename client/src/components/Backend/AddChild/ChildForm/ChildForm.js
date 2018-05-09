@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {withRouter} from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import classes from './ChildForm.css';
 import * as actions from '../../../../store/actions/index';
 
 import InfoMessage from '../../../UI/Message/infoMessage';
@@ -184,7 +185,7 @@ class ChildForm extends Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-md-6 offset-md-3 col-sm-8 offset-sm-2">
+                    <div className={classes.ChildForm+" col-md-8 offset-md-2 col-sm-8 offset-sm-2"}>
                         {reqErrorsDisplay}
                         {errorDisplay}
                         {this.props.userRedux.editMode? <InfoMessage messageType="info">Edit {this.props.userRedux.editChild.name}</InfoMessage>: <h3>Add New Child</h3> }

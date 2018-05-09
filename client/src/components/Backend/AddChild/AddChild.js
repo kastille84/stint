@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ChildList from './ChildList/ChildList';
+import ChildsList from './ChildsList/ChildsList';
 import ChildForm from './ChildForm/ChildForm';
 
 class AddChild extends Component {
@@ -22,15 +22,17 @@ class AddChild extends Component {
 
     render() {
         return (
-            <div>
-                Add/Edit Child Page
-    
-                <ChildList 
-                    addedChildren={this.state.addedChildren}
-                ></ChildList>
-                <hr />
-                <ChildForm 
-                    addedChildren={this.onAddedChildren}></ChildForm>
+            <div className="container">
+                <h3>List of Children</h3>
+                <div className="row">
+                    
+                    <ChildsList 
+                        addedChildren={this.state.addedChildren}
+                    ></ChildsList>
+                    <hr />
+                    <ChildForm 
+                        addedChildren={this.onAddedChildren}></ChildForm>
+                </div>
             </div>
         )
     }

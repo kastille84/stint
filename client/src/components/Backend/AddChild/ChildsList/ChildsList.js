@@ -2,9 +2,11 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actions from '../../../../store/actions/index';
+import classes from './ChildsList.css';
+
 import InfoMessage from '../../../UI/Message/infoMessage';
 
-class ChildList extends Component {
+class ChildsList extends Component {
     state = {
         reqErrors : null,
         deleteMessage: false,
@@ -20,7 +22,7 @@ class ChildList extends Component {
         let childrenArray = this.props.userRedux.user.children.map(child => {
             return (
                 <li key={child._id} className="list-group-item">
-                    {child.name} 
+                    {child.name} &nbsp;&nbsp;
                     <span>
                         <button 
                         className="btn btn-info"
@@ -34,14 +36,17 @@ class ChildList extends Component {
                             >Delete</button>
                     </span>
                     { (this.state.deleteMessage && this.state.deleteId === child._id)? (
-                        <span> Are you sure? 
+                        <div>
+                        <br />
+                        <span> Are you sure? &nbsp;
                             <button 
-                                className="btn btn-default" 
+                                className="btn btn-danger" 
                                 data-id={child._id}
                                 onClick={this.onDeleteConfirm}>yes</button>
                             <button 
-                                className="btn btn-default" 
-                                onClick={this.onDeleteCancel}>no</button></span>) 
+                                className="btn btn-info" 
+                                onClick={this.onDeleteCancel}>no</button></span>
+                        </div>) 
                 : null}
                 </li>
             )
@@ -91,37 +96,36 @@ class ChildList extends Component {
 
     render() {
         return (
-            <div>
-                ChildList
+            <div className={classes.ChildsList}>
                 {this.state.reqErrors? <InfoMessage messageType="fail">{this.setState.reqErrors}</InfoMessage>: null}
                 <ul className="list-group">
                     {this.getChildList()}
                     {this.props.addedChildren? this.props.addedChildren.map(child => {
                         return (
                             <li key={child._id} className="list-group-item">
-                                {child.name} 
-                                <span>
-                                    <button 
-                                        className="btn btn-info"
-                                        onClick={this.onEdit}
-                                        data-id={child._id}
-                                        >Edit</button>
-                                    <button 
-                                        className="btn btn-danger"
-                                        data-id={child._id}
-                                        onClick={this.onDeleteCheck}
-                                        >Delete</button>
-                                </span>
-                                {(this.state.deleteMessage && this.state.deleteId === child._id)? (
-                                        <span> Are you sure? 
+                                <div>
+                                    <span className={classes.Name}>{child.name}</span> 
+                                    <span>
+                                        <button 
+                                            className="btn btn-info"
+                                            onClick={this.onEdit}
+                                            data-id={child._id}
+                                            >Edit</button>
+                                        {(this.state.deleteMessage && this.state.deleteId === child._id)?
                                             <button 
+                                                className="btn btn-danger"
+                                                data-id={child._id}
+                                                onClick={this.onDeleteCheck}
+                                                >&nbsp;X &nbsp;</button>
+                                            :
+                                            <button
                                                 className="btn btn-default" 
                                                 data-id={child._id}
-                                                onClick={this.onDeleteConfirm}>yes</button>
-                                            <button 
-                                                className="btn btn-default" 
-                                                onClick={this.onDeleteCancel}>no</button></span>) 
-                                : null}
+                                                onClick={this.onDeleteConfirm}>Delete
+                                            </button>   
+                                        }
+                                    </span>
+                                </div>
                             </li>
                         )
                     }): null}
@@ -145,4 +149,4 @@ const mapDispatchToProps = (dispatch => {
     }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChildList);
+export default connect(mapStateToProps, mapDispatchToProps)(ChildsList);

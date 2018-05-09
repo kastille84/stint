@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import InfoMessage from '../../../UI/Message/infoMessage';
 import * as actions from '../../../../store/actions/index';
+import classes from './ChoreList.css';
 import axios from 'axios';
 
 class ChoreList extends Component {
@@ -47,12 +48,12 @@ class ChoreList extends Component {
             choresList = chores.map(chore => {
                 return (
                     <li className="list-group-item" key={chore}>
-                        <span>{chore}</span>
-                        <span className="btn-group" >
+                        <span className={classes.Name}>{chore}</span>
+                        <span className="btn-group pull-right" >
                             <button className="btn btn-info"
                                     onClick={this.setEditMode}
                                     data-chore={chore}>edit</button>
-                            <button className="btn btn-warning" 
+                            <button className="btn btn-danger" 
                                     onClick={this.setShowDelete}
                                     data-chore={chore}>X</button>
                             {(this.state.showDelete && this.state.selectedChore === chore)? 
@@ -76,12 +77,14 @@ class ChoreList extends Component {
 
     render() {
         return (
-            <div>
-                <h1>choreList</h1>
-                <ul>
-                    {this.state.reqErrors? <InfoMessage messageType="fail">{this.state.reqErrors}</InfoMessage>: null}
-                    {this.getChoreList()}
-                </ul>
+            <div className={classes.ChoreList + ' row'}>
+                <div className=" col-md-8 offset-md-2 col-sm-8 offset-sm-2">
+                    <h1>choreList</h1>
+                    <ul>
+                        {this.state.reqErrors? <InfoMessage messageType="fail">{this.state.reqErrors}</InfoMessage>: null}
+                        {this.getChoreList()}
+                    </ul>
+                </div>
             </div>
         );
     }

@@ -5,9 +5,14 @@
     padding: 0;
 }
 
+.ChoreList li {
+    display: flex;
+}
+
 .Name {
     font-size: 1.2rem;
     margin-right: 15px;
+    flex: 1;
 }
 
 /* TABLET && LARGE SMARTPHONES */

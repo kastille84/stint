@@ -52,11 +52,11 @@ class Home extends Component {
         if (this.state.userType === 'child') {
             let child = this.getChild()
             userContent = (
-                <div>
-                    <h1>Hey {child.name}</h1>
+                <div className={classes.Home}>
+                    <h1 className="mb-5">Hey {child.name}</h1>
                     
-                    <h3 className="btn"><Link to="/dashboard/choreChart">Chore Chart</Link></h3>
-                    <h3 className="btn"><Link to="/dashboard/addChild">Messages</Link></h3>
+                    <h3 className="btn btn-block"><Link to="/dashboard/choreChart">Chore Chart</Link></h3>
+                    <h3 className="btn btn-block"><Link to="/dashboard/addChild">Messages</Link></h3>
 
                 </div>
             )

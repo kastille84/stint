@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import classes from './ChoreTable.css';
 import * as actions from '../../../../store/actions/index';
 
 class ChoreTable extends Component {
@@ -118,22 +119,23 @@ class ChoreTable extends Component {
 
     render() {
         return (
-        <div>
-            
-        <table className="table table-striped table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th></th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>
-                </tr>
-            </thead>
-            <tbody>
-                {this.numTrs()}
-            </tbody>
-        </table>
-        {this.props.scheduleRedux.editMode === false? 
-            <button onClick={this.editToggle} className="btn btn-info">Edit</button>
-            : 
-            <button onClick={this.saveChanges} className="btn btn-primary">Save Changes</button>}
+        <div className={classes.ChoreTable}>
+          <div className="table-responsive">
+            <table className="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th></th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.numTrs()}
+                </tbody>
+            </table>
+            {this.props.scheduleRedux.editMode === false? 
+                <button onClick={this.editToggle} className="btn btn-info">Edit</button>
+                : 
+                <button onClick={this.saveChanges} className="btn btn-primary">Save Changes</button>}
+          </div>  
         </div>            
         )
     }

@@ -7,13 +7,17 @@
     width: 100%;
 }
 
+.ChildsList li {
+    display: flex;
+}
+
 .Delete {
     display: block;
 }
 
 .Name {
     font-size: 1.2rem;
-    margin-right: 10px;
+    flex: 1
 }
 
 /* TABLET && LARGE SMARTPHONES */

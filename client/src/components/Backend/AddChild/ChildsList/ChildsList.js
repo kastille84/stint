@@ -22,32 +22,27 @@ class ChildsList extends Component {
         let childrenArray = this.props.userRedux.user.children.map(child => {
             return (
                 <li key={child._id} className="list-group-item">
-                    {child.name} &nbsp;&nbsp;
+                    <span className={classes.Name}>{child.name}</span>
                     <span>
                         <button 
                         className="btn btn-info"
                         onClick={this.onEdit}
                         data-id={child._id}
                         >Edit</button>
+                    {this.state.deleteMessage && this.state.deleteId === child._id?
+                        <button 
+                            className="btn btn-danger" 
+                            data-id={child._id}
+                            onClick={this.onDeleteConfirm}>DELETE</button>
+                        :
                         <button 
                             className="btn btn-danger"
                             data-id={child._id}
                             onClick={this.onDeleteCheck}
-                            >Delete</button>
-                    </span>
-                    { (this.state.deleteMessage && this.state.deleteId === child._id)? (
-                        <div>
-                        <br />
-                        <span> Are you sure? &nbsp;
-                            <button 
-                                className="btn btn-danger" 
-                                data-id={child._id}
-                                onClick={this.onDeleteConfirm}>yes</button>
-                            <button 
-                                className="btn btn-info" 
-                                onClick={this.onDeleteCancel}>no</button></span>
-                        </div>) 
-                : null}
+                            >&nbsp;X&nbsp;</button>
+
+                    }                        
+                    </span>                    
                 </li>
             )
         });
@@ -66,7 +61,7 @@ class ChildsList extends Component {
     }
 
     onDeleteCheck = (e) => {
-        this.setState({deleteMessage: true});
+        this.setState({deleteMessage: !this.state.deleteMessage});
         this.setState({deleteId: e.target.dataset.id});
     }
 

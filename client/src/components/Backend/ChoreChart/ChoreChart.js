@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import ChoreTable from './ChoreTable/ChoreTable';
 import axios from 'axios';
 import * as actions from '../../../store/actions/index'; 
+import classes from './ChoreChart.css';
 
 class ChoreChart extends Component {
     state = {
@@ -79,8 +80,8 @@ class ChoreChart extends Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-md-8 offset-md-2">
-                        <div>
+                    <div className={classes.ChoreChart+" col-md-8 offset-md-2"}>
+                        <div >
                             {this.props.userRedux.userType === 'adult'? this.getChildList() : this.getIndividualChild()}
                         </div>
                         {this.state.name? <h4>{this.state.name}'s Chore Chart</h4>: null}

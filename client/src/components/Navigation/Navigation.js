@@ -30,9 +30,6 @@ class Navigation extends Component {
                         <NavLink to="/" className="nav-link">Home</NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink to="/about" className="nav-link">About</NavLink>
-                    </li>
-                    <li className="nav-item">
                         <NavLink to="/register" className="nav-link">Register</NavLink>
                     </li>
                     <li className="nav-item">

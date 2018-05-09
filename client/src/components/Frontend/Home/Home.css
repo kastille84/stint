@@ -1,0 +1,19 @@
+.Home {
+
+}
+
+.Jumbotron {
+    padding: 0;
+    height: 400px;
+}
+
+.Jumbotron h3 {
+    position: relative;
+    bottom: 300px;
+    font-size: 2.5rem;
+    background-color: #ccc;
+    color: #444;
+    opacity: .8;
+    padding: 40px;
+    font-style: italic;
+}

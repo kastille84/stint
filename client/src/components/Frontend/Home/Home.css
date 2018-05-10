@@ -4,7 +4,7 @@
 
 .Jumbotron {
     padding: 0;
-    height: 100px;
+    height: 250px;
 }
 
 .Jumbotron h3 {
@@ -18,8 +18,24 @@
     font-size: 1.1rem;
 }
 
+.Title h3 {
+    margin: 40px auto;
+}
+
+.Explain {
+    background: #eee;
+}
+.Explain div:nth-child(1) {
+    padding-left:0;
+}
+
+
 /* TABLET && LARGE SMARTPHONES */
 @media screen and (min-width: 481px ) and (max-width: 768px) {
+    .Jumbotron {
+        padding: 0;
+        height: 450px;
+    }
     .Jumbotron h3 {
         bottom: 200px;
         font-size: 1.5rem;
@@ -28,6 +44,10 @@
 }
 /* LAPTOPS && TABLET in Landscape */
 @media screen and (min-width: 769px ) and (max-width: 1024px) {
+    .Jumbotron {
+        padding: 0;
+        height: 620px;
+    }
     .Jumbotron h3 {
         bottom: 250px;
         font-size: 2.5rem;
@@ -36,6 +56,10 @@
 }
 /* LARGE DESKTOPS */
 @media screen and (min-width: 1025px ) and (max-width: 1600px) {
+    .Jumbotron {
+        padding: 0;
+        height: 750px;
+    }
     .Jumbotron h3 {
         bottom: 300px;
         font-size: 2.5rem;

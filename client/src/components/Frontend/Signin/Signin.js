@@ -219,7 +219,7 @@ class Signin extends Component {
                                     onChange={this.inputChanged} />
                             </div>                            
                             <button 
-                                className="btn btn-primary">REGISTER</button>
+                                className="btn btn-primary">SIGNIN</button>
                         </form>
                     </div>
                 </div>

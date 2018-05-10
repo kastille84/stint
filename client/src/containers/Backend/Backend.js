@@ -7,6 +7,7 @@ import WhichUser from '../../components/Backend/WhichUser/WhichUser';
 import AddChild from '../../components/Backend/AddChild/AddChild';
 import AddChore from '../../components/Backend/AddChore/AddChore';
 import ChoreChart from '../../components/Backend/ChoreChart/ChoreChart';
+import Messages from '../../components/Backend/Messages/Messages';
 
 class Backend extends Component {
     
@@ -18,7 +19,8 @@ class Backend extends Component {
                     <Route path="/dashboard/addchild" component={AddChild} />
                     <Route path="/dashboard/addChore" component={AddChore} />
                     <Route path="/dashboard/choreChart" component={ChoreChart} />
-                    <Route path="/dashboard/whichuser"  component={WhichUser} />    
+                    <Route path="/dashboard/whichuser"  component={WhichUser} />  
+                    <Route path="/dashboard/messages" component={Messages} />  
                 </Switch>
             </div>
         )

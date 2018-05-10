@@ -43,7 +43,7 @@ class Home extends Component {
                         <div>
                             <h3 className="btn btn-default btn-block"><Link to="/dashboard/addChore">Add / Edit Chore List</Link></h3>
                             <h3 className="btn btn-default btn-block"><Link to="/dashboard/choreChart">View Chore Chart</Link></h3>
-                            <h3 className="btn btn-default btn-block"><Link to="/dashboard/addChild">Messages</Link></h3>
+                            <h3 className="btn btn-default btn-block"><Link to="/dashboard/messages">Messages</Link></h3>
                         </div>)
                     :null}
                 </div>
@@ -56,7 +56,7 @@ class Home extends Component {
                     <h1 className="mb-5">Hey {child.name}</h1>
                     
                     <h3 className="btn btn-block"><Link to="/dashboard/choreChart">Chore Chart</Link></h3>
-                    <h3 className="btn btn-block"><Link to="/dashboard/addChild">Messages</Link></h3>
+                    <h3 className="btn btn-block"><Link to="/dashboard/messages">Messages</Link></h3>
 
                 </div>
             )

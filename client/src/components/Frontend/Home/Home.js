@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './Home.css';
+import {Link} from 'react-router-dom';
 
 const home = (props) => {
     return (
@@ -49,9 +50,12 @@ const home = (props) => {
                     </div>
                 </div>
             </div>   
-            <div className='row'>
-
-            </div>   
+            <div className={classes.Title +' row'}>
+                <div className="col-12">
+                    <h3>Register Now</h3>
+                    <Link to='/register' className='btn btn-lg btn-success'>REGISTER</Link>
+                </div>            
+            </div>  
         </div>
     )
 }

@@ -4,16 +4,42 @@
 
 .Jumbotron {
     padding: 0;
-    height: 400px;
+    height: 100px;
 }
 
 .Jumbotron h3 {
     position: relative;
-    bottom: 300px;
-    font-size: 2.5rem;
+    bottom: 80px;
     background-color: #ccc;
     color: #444;
     opacity: .8;
-    padding: 40px;
+    padding: 10px;
     font-style: italic;
+    font-size: 1.1rem;
+}
+
+/* TABLET && LARGE SMARTPHONES */
+@media screen and (min-width: 481px ) and (max-width: 768px) {
+    .Jumbotron h3 {
+        bottom: 200px;
+        font-size: 1.5rem;
+        padding: 40px;
+    }
+}
+/* LAPTOPS && TABLET in Landscape */
+@media screen and (min-width: 769px ) and (max-width: 1024px) {
+    .Jumbotron h3 {
+        bottom: 250px;
+        font-size: 2.5rem;
+        padding: 40px;
+    }
+}
+/* LARGE DESKTOPS */
+@media screen and (min-width: 1025px ) and (max-width: 1600px) {
+    .Jumbotron h3 {
+        bottom: 300px;
+        font-size: 2.5rem;
+        padding: 40px;
+    }
+
 }

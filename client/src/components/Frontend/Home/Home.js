@@ -17,31 +17,31 @@ const home = (props) => {
                 </div>            
             </div>  
             <div className={classes.Explain+' row d-flex'}>
-                <div className="col-6">
+                <div className="col-sm-6 col-md-6 col-12">
                     <img 
                         src={process.env.PUBLIC_URL + '/assets/images/motherAndSon.jpg'} 
                         alt='parent and child' 
                         className='img-fluid'/>
                 </div>
-                <div className=" col-6 align-self-center">
+                <div className=" col-sm-6 col-md-6 col-12 align-self-center">
                     <h5>Stint is an Online Chore Tracker Application</h5>
                     <br/>
                     <h5>Stint is aimed at bringing Parents and Children together through structure in the household.</h5>
                 </div>
             </div>   
             <div className={classes.Title +' row'}>
-                <div className="col-12">
+                <div className="col-12 col-12">
                     <h3>What are the Benefits?</h3>
                 </div>            
             </div> 
             <div className={classes.Benefit+' row'}>
-                <div className='card col-6 col-xs-12'>
+                <div className='card col-sm-6 col-md-6 col-12'>
                     <div className='card-body'>
                         <div className='card-title'><h5>Parent</h5></div>
                             <p>As parents, we constantly worry about what kind of person our child will grow up to be. By giving your kids chores around the house, you can be assured that your kids gain responsibility, character, and problem solving skills. Did we forget to mention that your house will be clean aswell?</p>
                     </div>
                 </div>
-                <div className='card col-6 col-xs-12'>
+                <div className='card col-sm-6 col-md-6 col-12'>
                     <div className='card-body'>
                         <div className='card-title'><h5>Child</h5></div>
                         <div className='card-text'>
@@ -50,7 +50,7 @@ const home = (props) => {
                     </div>
                 </div>
             </div>   
-            <div className={classes.Title +' row'}>
+            <div className={classes.Register +' row'}>
                 <div className="col-12">
                     <h3>Register Now</h3>
                     <Link to='/register' className='btn btn-lg btn-success'>REGISTER</Link>

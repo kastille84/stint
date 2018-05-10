@@ -25,11 +25,23 @@
 .Explain {
     background: #eee;
 }
-.Explain div:nth-child(1) {
-    padding-left:0;
+
+.Explain div:nth-child(2) {
+    margin-top: 20px;
 }
 
+.Benefit {
+    width: 90%;
+    margin:auto;
+    margin-bottom: 20px;
+}
+.Benefit div:first-child {
+    margin-bottom: 20px;
+}
 
+.Register {
+    margin-bottom: 40px;
+}
 /* TABLET && LARGE SMARTPHONES */
 @media screen and (min-width: 481px ) and (max-width: 768px) {
     .Jumbotron {
@@ -40,6 +52,17 @@
         bottom: 200px;
         font-size: 1.5rem;
         padding: 40px;
+    }
+    .Explain div:nth-child(1) {
+        padding-left:0;
+    }
+    .Benefit {
+        width: 90%;
+        margin:auto;
+        margin-bottom: 20px;
+    }
+    .Benefit div:first-child {
+        margin-bottom: 0px;
     }
 }
 /* LAPTOPS && TABLET in Landscape */
@@ -53,6 +76,20 @@
         font-size: 2.5rem;
         padding: 40px;
     }
+    .Explain div:nth-child(1) {
+        padding-left:0;
+    }
+    .Explain div:nth-child(2) h5:nth-child(1) {
+        font-size: 2rem;
+    }
+    .Benefit {
+        width: 90%;
+        margin:auto;
+        margin-bottom: 20px;
+    }
+    .Benefit div:first-child {
+        margin-bottom: 0px;
+    }
 }
 /* LARGE DESKTOPS */
 @media screen and (min-width: 1025px ) and (max-width: 1600px) {
@@ -64,6 +101,20 @@
         bottom: 300px;
         font-size: 2.5rem;
         padding: 40px;
+    }
+    .Explain div:nth-child(1) {
+        padding-left:0;
+    }
+    .Explain div:nth-child(2) h5:nth-child(1) {
+        font-size: 2rem;
+    }
+    .Benefit {
+        width: 90%;
+        margin:auto;
+        margin-bottom: 20px;
+    }
+    .Benefit div:first-child {
+        margin-bottom: 0px;
     }
 
 }

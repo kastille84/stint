@@ -8,7 +8,7 @@ const home = (props) => {
             <div className={classes.Jumbotron+" jumbotron"}>
                 <img className="img-fluid" 
                     src="https://s3.amazonaws.com/stint-react/child.jpg"
-                    alt='leaves' />
+                    alt='child' />
                 <h3>Having Chores Regularly Can Build Character In A Child</h3>
             </div>
             <div className={classes.Title +' row'}>

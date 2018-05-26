@@ -23,7 +23,7 @@ class App extends Component {
       this.props.onSetIsSignedIn(true);
     } else {
       localStorage.removeItem('token');
-      this.props.history.push('/signin');
+      this.props.history.push('/');
     }
   }
 

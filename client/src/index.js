@@ -22,7 +22,8 @@ const store = createStore(rootReducer, composeEnhancers(
     applyMiddleware(thunk)
 ));
 
-axios.defaults.baseURL="http://localhost:5000/api";
+//axios.defaults.baseURL="http://localhost:5000/api";
+axios.defaults.baseURL="https://murmuring-peak-16111.herokuapp.com/api";
 
 
 const app = (

@@ -7,7 +7,7 @@ const home = (props) => {
         <div className={classes.Home+' container'}>
             <div className={classes.Jumbotron+" jumbotron"}>
                 <img className="img-fluid" 
-                    src={process.env.PUBLIC_URL + '/assets/images/child.jpg'}
+                    src="https://s3.amazonaws.com/stint-react/child.jpg"
                     alt='leaves' />
                 <h3>Having Chores Regularly Can Build Character In A Child</h3>
             </div>
@@ -19,7 +19,7 @@ const home = (props) => {
             <div className={classes.Explain+' row d-flex'}>
                 <div className="col-sm-6 col-md-6 col-12">
                     <img 
-                        src={process.env.PUBLIC_URL + '/assets/images/motherAndSon.jpg'} 
+                        src="https://s3.amazonaws.com/stint-react/motherAndSon.jpg" 
                         alt='parent and child' 
                         className='img-fluid'/>
                 </div>

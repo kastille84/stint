@@ -14,7 +14,8 @@ const Child = require('../models/child');
 const Schedule = require('../models/schedule');
 const {tks, email, pemail, urlEnv} = require('../config/config');
 
-mongoose.connect('mongodb://localhost:27017/stint');
+//mongoose.connect('mongodb://localhost:27017/stint');
+mongoose.connect('mongodb://heroku_jknwdhnc:g2lpipcphejstnp5cedo96ujek@ds137740.mlab.com:37740/heroku_jknwdhnc');
 mongoose.Promise= global.Promise;
 
 // ROUTES GO HERE

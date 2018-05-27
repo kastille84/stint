@@ -15,11 +15,11 @@ class AddChild extends Component {
     //     this.setState({editMode: true});
     //     this.setState({editChild: child});
     // }
-    componentDidMount() {
+    componentWillMount() {
         this.props.onSetEditChild(null);
         this.props.onSetEditMode(null);
     }
-    
+
     onAddedChildren = (child) =>{
         let childrenCopy = [...this.state.children];
         childrenCopy.push(child);

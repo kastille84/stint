@@ -25,8 +25,8 @@ class ChildForm extends Component {
         reqErrors: null
     }
 
-    componentWillReceiveProps() {
-
+    componentWillMount() {
+        
     }
 
     inputChanged = (event) => {

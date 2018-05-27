@@ -16,7 +16,8 @@ class AddChild extends Component {
     //     this.setState({editChild: child});
     // }
     componentDidMount() {
-        this.props.onSetEditChild(false);
+        this.props.onSetEditChild(null);
+        this.props.onSetEditMode(null);
     }
     onAddedChildren = (child) =>{
         let childrenCopy = [...this.state.children];
@@ -44,7 +45,8 @@ class AddChild extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onSetEditChild: (bool) => dispatch(actions.setEditMode(bool))
+        onSetEditChild: (bool) => dispatch(actions.setEditMode(bool)),
+        onSetEditMode: (bool) => dispatch(actions.setEditMode(bool))
     }
 }
 

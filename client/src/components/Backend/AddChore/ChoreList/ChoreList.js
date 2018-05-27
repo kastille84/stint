@@ -13,7 +13,7 @@ class ChoreList extends Component {
     }
 
     componentWillUnmount() {
-        this.props.onEditMode(false);
+        this.props.onEditMode(null);
     }
 
     setShowDelete = (e) => {

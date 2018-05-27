@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ChildsList from './ChildsList/ChildsList';
 import ChildForm from './ChildForm/ChildForm';
+import * as actions from '../../../store/actions/index';
+import { connect } from 'react-redux';
 
 class AddChild extends Component {
     state = {
@@ -13,7 +15,9 @@ class AddChild extends Component {
     //     this.setState({editMode: true});
     //     this.setState({editChild: child});
     // }
-
+    componentDidMount() {
+        this.props.onSetEditChild(false);
+    }
     onAddedChildren = (child) =>{
         let childrenCopy = [...this.state.children];
         childrenCopy.push(child);
@@ -38,4 +42,10 @@ class AddChild extends Component {
     }
 }
 
-export default AddChild;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onSetEditChild: (bool) => dispatch(actions.setEditMode(bool))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(AddChild);

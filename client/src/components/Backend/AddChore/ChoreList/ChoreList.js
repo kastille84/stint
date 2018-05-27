@@ -14,6 +14,9 @@ class ChoreList extends Component {
 
     componentWillUnmount() {
         this.props.onEditMode(null);
+        setTimeout( () => {
+
+        }, 1000);
     }
 
     setShowDelete = (e) => {

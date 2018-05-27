@@ -19,6 +19,7 @@ class AddChild extends Component {
         this.props.onSetEditChild(null);
         this.props.onSetEditMode(null);
     }
+    
     onAddedChildren = (child) =>{
         let childrenCopy = [...this.state.children];
         childrenCopy.push(child);

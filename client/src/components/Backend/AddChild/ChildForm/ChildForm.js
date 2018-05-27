@@ -198,7 +198,7 @@ class ChildForm extends Component {
                                     id='name'
                                     name="name"
                                     onChange={this.inputChanged}
-                                    placeholder={this.props.userRedux.editMode? this.props.userRedux.editChild.name : ''}
+                                    placeholder={this.props.userRedux.editMode === true? this.props.userRedux.editChild.name : ''}
                                 />
                             </div>
                             <div className="form-group">
@@ -210,13 +210,13 @@ class ChildForm extends Component {
                                     name="pin"
                                     maxLength="4"
                                     onChange={this.inputChanged}
-                                    placeholder={this.props.userRedux.editMode? this.props.userRedux.editChild.pin : ''}
+                                    placeholder={this.props.userRedux.editMode === true? this.props.userRedux.editChild.pin : ''}
                                     />
                             </div>
                             <button 
                                 className="btn btn-success"
 
-                                >{this.props.userRedux.editMode? `Edit ${this.props.userRedux.editChild.name}`: 'Add' }</button>
+                                >{this.props.userRedux.editMode === true? `Edit ${this.props.userRedux.editChild.name}`: 'Add' }</button>
                         </form>
                     </div>
                 </div>

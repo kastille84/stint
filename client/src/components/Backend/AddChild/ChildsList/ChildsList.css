@@ -9,6 +9,8 @@
 
 .ChildsList li {
     display: flex;
+    width: 70%;
+    margin: auto;
 }
 
 .Delete {

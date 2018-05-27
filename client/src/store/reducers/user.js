@@ -123,10 +123,17 @@ const reducer = (state = initialState, action) => {
             }
         case actionTypes.SET_DELETE_CHORE:
             choreArr = [...state.user.choreList];
-            index = choreArr.indexOf(action.chore);
-            if (index) {
-                delete choreArr[index]
-            }
+            // index = choreArr.indexOf(action.chore);
+            // if (index) {
+            //     delete choreArr[index]
+            // }
+            choreArr = choreArr.filter(chore => {
+                if (chore === action.chore) {
+                    return false;
+                } else {
+                    return true;
+                }
+            })
             user = {...state.user};
             user['choreList'] = choreArr;
             return {

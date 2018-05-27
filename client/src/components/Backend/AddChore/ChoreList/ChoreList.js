@@ -79,7 +79,7 @@ class ChoreList extends Component {
         return (
             <div className={classes.ChoreList + ' row'}>
                 <div className=" col-md-8 offset-md-2 col-sm-8 offset-sm-2">
-                    <h1>choreList</h1>
+                    <h1>ChoreList</h1>
                     <ul>
                         {this.state.reqErrors? <InfoMessage messageType="fail">{this.state.reqErrors}</InfoMessage>: null}
                         {this.getChoreList()}

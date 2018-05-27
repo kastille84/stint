@@ -12,6 +12,10 @@ class ChoreList extends Component {
         reqErrors: null
     }
 
+    componentWillUnmount() {
+        this.props.onEditMode(false);
+    }
+
     setShowDelete = (e) => {
         const chore = e.target.dataset.chore;
         this.setState({showDelete: !this.state.showDelete});

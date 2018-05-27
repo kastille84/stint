@@ -188,7 +188,7 @@ class ChildForm extends Component {
                     <div className={classes.ChildForm+" col-md-8 offset-md-2 col-sm-8 offset-sm-2"}>
                         {reqErrorsDisplay}
                         {errorDisplay}
-                        {this.props.userRedux.editMode === true? <InfoMessage messageType="info">Edit {this.props.userRedux.editChild.name}</InfoMessage>: <h3>Add New Child</h3> }
+                        { (this.props.userRedux.editMode === true && this.props.userRedux.editChild !== null)? <InfoMessage messageType="info">Edit {this.props.userRedux.editChild.name}</InfoMessage>: <h3>Add New Child</h3> }
                         <form  onSubmit={this.handleSubmit}>
                             <div className="form-group">
                                 <label>Name</label>

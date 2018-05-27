@@ -80,7 +80,7 @@ router.post('/register', [
             from: `"Edwin at Stint" <${email}> `,
             to: req.body.email,
             subject: "Stint Needs Email Verification",
-            html: "<h2>Hey " + req.body.name + "</h2><h3>Thank you for registering to Stint</h3><p>For sercurity reasons, we need to verify that you are the person/entitfy that just registered with us. </p><p>Please click on the link below to complete verification</p><br><a href='" + "http://localhost:3000/" +"signin/" + result._id+"/" + vhash + "'>VERIFY HERE</a>"
+            html: "<h2>Hey " + req.body.name + "</h2><h3>Thank you for registering to Stint</h3><p>For sercurity reasons, we need to verify that you are the person/entitfy that just registered with us. </p><p>Please click on the link below to complete verification</p><br><a href='" + urlEnv +"signin/" + result._id+"/" + vhash + "'>VERIFY HERE</a>"
         };
         // send mail
         transporter.sendMail(mailOptions, (err, info) => {

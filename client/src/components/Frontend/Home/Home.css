@@ -92,7 +92,7 @@
     }
 }
 /* LARGE DESKTOPS */
-@media screen and (min-width: 1025px ) and (max-width: 1600px) {
+@media screen and (min-width: 1025px )  {
     .Jumbotron {
         padding: 0;
         height: 750px;
@@ -119,8 +119,8 @@
 
 }
 
-@media screen and (min-width: 1601px )  {
+/* @media screen and (min-width: 1601px )  {
     .jumbotron {
         min-height: 750px;
     }
-}
+} */

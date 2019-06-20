@@ -200,7 +200,7 @@ class Signin extends Component {
                         <form className="form-control" onSubmit={this.handleSubmit}>
                             <div className="form-group">
                                 <label>Email</label>
-                                <cite>use: givechain84@gmail.com</cite>
+                                <br/><cite>use: givechain84@gmail.com</cite>
                                 <input 
                                     type="email"
                                     className="form-control"
@@ -211,7 +211,7 @@ class Signin extends Component {
                             </div>
                             <div className="form-group">
                                 <label>Password <br/><small>shared with family</small></label>
-                                <cite>use: test4400</cite>
+                                <br/><cite>use: test4400</cite>
                                 <input 
                                     type="password"
                                     className="form-control"

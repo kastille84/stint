@@ -145,6 +145,7 @@ class WhichUser extends Component {
                         <h2>Who is using Stint?</h2>
                         <div className={classes.whichCardP+" card mb-4 mt-5 p-4"}>
                             <p>{this.props.userRedux.user.name}</p>
+                            <cite>use: 4400</cite>
                             <br/>
                             <form onSubmit={this.handleSubmit}>
                                 {this.state.whoId === this.props.userRedux.user._id? 
